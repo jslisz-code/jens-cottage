@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#2c1e18" />
+  <title>Jen's Cottage | Fine Art Salon</title>
+  <meta name="description" content="Jen's Cottage presents expressive modern artwork in a warm, elegant French salon setting." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Subtle salon ornaments that drift with the mouse. Purely decorative. -->
+  <div class="ambient-layer" aria-hidden="true">
+    <div class="cursor-glow"></div>
+
+    <svg class="ornament ornament-a parallax" data-depth="10" viewBox="0 0 160 160">
+      <path d="M80 13c7 22 24 39 46 46-22 7-39 24-46 46-7-22-24-39-46-46 22-7 39-24 46-46Z"/>
+      <circle cx="80" cy="59" r="9"/>
+    </svg>
+
+    <svg class="ornament ornament-b parallax" data-depth="17" viewBox="0 0 180 180">
+      <path d="M32 108c29-6 48-26 58-58 8 35 30 54 58 58-29 6-48 26-58 58-8-35-30-54-58-58Z"/>
+      <path d="M54 87c9-20 22-31 36-37M126 87c-9-20-22-31-36-37"/>
+    </svg>
+
+    <svg class="ornament ornament-c parallax" data-depth="7" viewBox="0 0 220 220">
+      <path d="M40 139c52-8 86-45 92-100 3 44 19 78 48 101-43 2-76 16-101 42-6-21-19-35-39-43Z"/>
+      <path d="M75 151c17-22 33-49 48-81"/>
+    </svg>
+
+    <div class="fine-dot dot-1 parallax" data-depth="20"></div>
+    <div class="fine-dot dot-2 parallax" data-depth="12"></div>
+    <div class="fine-dot dot-3 parallax" data-depth="24"></div>
+    <div class="fine-dot dot-4 parallax" data-depth="9"></div>
+    <div class="fine-dot dot-5 parallax" data-depth="15"></div>
+    <div class="fine-dot dot-6 parallax" data-depth="18"></div>
+  </div>
+
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="#top" aria-label="Jen's Cottage home">
+        <span class="monogram">JC</span>
+        <span>Jen's Cottage</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#collection">Collection</a>
+        <a href="#salon">Salon</a>
+        <a href="#about">About</a>
+        <a href="#inquiries">Inquiries</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-shade"></div>
+      <div class="hero-vignette"></div>
+      <div class="hero-rule parallax" data-depth="6" aria-hidden="true"></div>
+      <div class="container hero-copy reveal">
+        <p class="eyebrow">Un Salon Privé · Modern Expression</p>
+        <h1>Jen's<br><em>Cottage</em></h1>
+        <p class="lede">Expressive portraiture, geometric abstraction, and old-world presentation gathered into a warm private salon.</p>
+        <a class="button" href="#collection">Enter the Collection <span>↘</span></a>
+      </div>
+      <div class="hero-caption reveal" aria-hidden="true">
+        <span>01</span>
+        <span>A curated room for art with a point of view</span>
+      </div>
+    </section>
+
+    <section class="intro section salon-paper">
+      <div class="container intro-grid">
+        <div class="reveal">
+          <p class="kicker">Curated with atmosphere</p>
+          <h2>Artwork should feel <em>discovered</em>, not displayed.</h2>
+        </div>
+        <div class="intro-text reveal">
+          <p>Jen's Cottage brings together bold line, painterly texture, sculptural framing, and intimate presentation. Each piece is staged as though it belongs in a collector's private salon.</p>
+          <p>Antique gold, oxblood, tobacco brown, olive, marble and lamplight warm the rooms around the canvases without stealing their voice.</p>
+        </div>
+      </div>
+      <div class="section-flourish parallax" data-depth="8" aria-hidden="true">✦</div>
+    </section>
+
+    <section class="section collection" id="collection">
+      <div class="collection-aura aura-one parallax" data-depth="7" aria-hidden="true"></div>
+      <div class="collection-aura aura-two parallax" data-depth="12" aria-hidden="true"></div>
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="kicker">Selected works</p>
+          <div class="section-title-row">
+            <h2>The Collection</h2>
+            <p>Original expression, old-world ceremony.</p>
+          </div>
+        </div>
+
+        <div class="gallery-grid">
+          <button class="art-card tall reveal" data-img="images/hero-abstract-blue.png" data-title="Composition in Bleu">
+            <img src="images/hero-abstract-blue.png" alt="Blue abstract painting staged in an elegant gallery" />
+            <span><strong>Composition in Bleu</strong><small>Abstract composition</small><i>View work</i></span>
+          </button>
+          <button class="art-card reveal" data-img="images/portrait-emerald-gold.png" data-title="Visage Émeraude">
+            <img src="images/portrait-emerald-gold.png" alt="Emerald portrait in ornate gold frame" />
+            <span><strong>Visage Émeraude</strong><small>Portrait study</small><i>View work</i></span>
+          </button>
+          <button class="art-card reveal" data-img="images/portrait-aqua-gold.png" data-title="Étude en Aqua">
+            <img src="images/portrait-aqua-gold.png" alt="Aqua abstract portrait in ornate frame" />
+            <span><strong>Étude en Aqua</strong><small>Abstract portrait</small><i>View work</i></span>
+          </button>
+          <button class="art-card reveal" data-img="images/portrait-peach-salon.png" data-title="Femme au Salon">
+            <img src="images/portrait-peach-salon.png" alt="Peach and green vertical portrait in a French-style room" />
+            <span><strong>Femme au Salon</strong><small>Figurative work</small><i>View work</i></span>
+          </button>
+          <button class="art-card reveal" data-img="images/portrait-blue-salon.png" data-title="Bleu de Maison">
+            <img src="images/portrait-blue-salon.png" alt="Blue portrait staged over a marble console" />
+            <span><strong>Bleu de Maison</strong><small>Salon portrait</small><i>View work</i></span>
+          </button>
+          <button class="art-card reveal" data-img="images/portrait-modern-gold.png" data-title="Modern Muse">
+            <img src="images/portrait-modern-gold.png" alt="Modern portrait in ornate gold frame" />
+            <span><strong>Modern Muse</strong><small>Expressive portrait</small><i>View work</i></span>
+          </button>
+          <button class="art-card wide reveal" data-img="images/abstract-aqua-frame.png" data-title="Arc et Forme">
+            <img src="images/abstract-aqua-frame.png" alt="Horizontal teal geometric abstract" />
+            <span><strong>Arc et Forme</strong><small>Geometric abstraction</small><i>View work</i></span>
+          </button>
+          <button class="art-card reveal" data-img="images/portrait-mint-frame.png" data-title="Le Regard">
+            <img src="images/portrait-mint-frame.png" alt="Mint and teal face in gold frame" />
+            <span><strong>Le Regard</strong><small>Abstract face</small><i>View work</i></span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section salon" id="salon">
+      <div class="salon-corner salon-corner-left parallax" data-depth="10" aria-hidden="true"></div>
+      <div class="salon-corner salon-corner-right parallax" data-depth="15" aria-hidden="true"></div>
+      <div class="container salon-grid">
+        <div class="feature-wrap reveal">
+          <div class="feature-image">
+            <img src="images/portrait-blue-salon.png" alt="Artwork displayed in an elegant salon setting" />
+          </div>
+          <div class="feature-plaque"><span>Salon No. 01</span><strong>Bleu de Maison</strong></div>
+        </div>
+        <div class="salon-copy reveal">
+          <p class="kicker">The Salon</p>
+          <h2>A private viewing, even on a screen.</h2>
+          <p>Every work is presented with the visual language of an intimate collector's room: antique framing, warm metals, quiet symmetry, and just enough grandeur to give the art ceremony.</p>
+          <p>The result is less online shop, more opening night after the doors have closed and the last lamps are still glowing.</p>
+          <a class="text-link" href="#inquiries">Request availability <span>→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section about" id="about">
+      <div class="container about-grid">
+        <div class="reveal">
+          <p class="kicker">About Jen's Cottage</p>
+          <h2>Art, antiques, and rooms with a <em>point of view.</em></h2>
+        </div>
+        <div class="about-copy reveal">
+          <p>Jen's Cottage is built around expressive work with personality. The paintings move between portrait, abstraction, and geometric form, often paired with traditional frames and interiors that create tension between old-world elegance and modern expression.</p>
+          <p>That contrast is the signature: bold work, beautifully staged.</p>
+          <div class="signature-line"><span></span><em>Collected slowly. Chosen instinctively.</em></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section inquiries" id="inquiries">
+      <div class="container inquiry-card reveal">
+        <div class="inquiry-star parallax" data-depth="12" aria-hidden="true">✦</div>
+        <p class="kicker">Private inquiries</p>
+        <h2>Ask about availability, commissions, or a private viewing.</h2>
+        <p>Replace the email below with Jen's preferred contact before publishing.</p>
+        <a class="button" href="mailto:hello@jenscottage.com">hello@jenscottage.com <span>↗</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-wrap">
+      <span class="footer-name">Jen's Cottage</span>
+      <span>Fine Art · French Curation</span>
+    </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox-close" id="closeLightbox" aria-label="Close">×</button>
+    <div class="lightbox-backdrop"></div>
+    <figure>
+      <img id="lightboxImage" src="" alt="" />
+      <figcaption id="lightboxTitle"></figcaption>
+    </figure>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
