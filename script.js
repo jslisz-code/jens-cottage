@@ -5,6 +5,7 @@ const title = document.getElementById('lightboxTitle');
 const medium = document.getElementById('lightboxMedium');
 const size = document.getElementById('lightboxSize');
 const frame = document.getElementById('lightboxFrame');
+const print = document.getElementById('lightboxPrint');
 const status = document.getElementById('lightboxStatus');
 const inquiry = document.getElementById('lightboxInquiry');
 const closeBtn = document.getElementById('closeLightbox');
@@ -16,6 +17,9 @@ const zoomInBtn = document.getElementById('zoomIn');
 const zoomOutBtn = document.getElementById('zoomOut');
 const zoomResetBtn = document.getElementById('zoomReset');
 
+const CONTACT_EMAIL = 'maisonregardbleu@gmail.com';
+const CC_EMAIL = 'jslisz.drip@outlook.com';
+
 let zoomLevel = 1;
 let panX = 0;
 let panY = 0;
@@ -25,42 +29,60 @@ let dragStartX = 0;
 let dragStartY = 0;
 let dragOriginX = 0;
 let dragOriginY = 0;
+
 const MIN_ZOOM = 1;
 const MAX_ZOOM = 4;
 const ZOOM_STEP = 0.5;
 
-function clampArtworkPan(){
+function buildInquiryLink(workTitle = '') {
+  const subject = workTitle
+    ? `Maison du Regard Bleu inquiry: ${workTitle}`
+    : 'Maison du Regard Bleu inquiry';
+
+  const body = workTitle
+    ? `Hello,\n\nI am interested in ${workTitle}. Please send me availability and purchase details.\n\nThank you.`
+    : 'Hello,\n\nI would like more information about Maison du Regard Bleu artwork.\n\nThank you.';
+
+  return `mailto:${CONTACT_EMAIL}?cc=${encodeURIComponent(CC_EMAIL)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
+function clampArtworkPan() {
   if (!lightboxViewport || zoomLevel <= 1) {
     panX = 0;
     panY = 0;
     return;
   }
+
   const maxX = (lightboxViewport.clientWidth * (zoomLevel - 1)) / 2;
   const maxY = (lightboxViewport.clientHeight * (zoomLevel - 1)) / 2;
+
   panX = Math.max(-maxX, Math.min(maxX, panX));
   panY = Math.max(-maxY, Math.min(maxY, panY));
 }
 
-function renderArtworkZoom(){
+function renderArtworkZoom() {
   clampArtworkPan();
   image.style.transform = `translate3d(${panX}px, ${panY}px, 0) scale(${zoomLevel})`;
   image.classList.toggle('is-zoomed', zoomLevel > 1);
   lightboxViewport?.classList.toggle('has-zoom', zoomLevel > 1);
+
   if (zoomResetBtn) zoomResetBtn.textContent = `${Math.round(zoomLevel * 100)}%`;
   if (zoomOutBtn) zoomOutBtn.disabled = zoomLevel <= MIN_ZOOM;
   if (zoomInBtn) zoomInBtn.disabled = zoomLevel >= MAX_ZOOM;
 }
 
-function setArtworkZoom(nextZoom){
+function setArtworkZoom(nextZoom) {
   zoomLevel = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, nextZoom));
+
   if (zoomLevel === 1) {
     panX = 0;
     panY = 0;
   }
+
   renderArtworkZoom();
 }
 
-function resetArtworkZoom(){
+function resetArtworkZoom() {
   zoomLevel = 1;
   panX = 0;
   panY = 0;
@@ -70,61 +92,81 @@ function resetArtworkZoom(){
   renderArtworkZoom();
 }
 
-function closeLightbox(){
+function closeLightbox() {
   resetArtworkZoom();
   lightbox.classList.remove('active');
-  lightbox.setAttribute('aria-hidden','true');
-  document.body.style.overflow='';
+  lightbox.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
 }
 
-cards.forEach(card => card.addEventListener('click', () => {
-  image.src = card.dataset.img;
-  image.alt = card.dataset.title;
-  title.textContent = card.dataset.title || '';
-  medium.textContent = card.dataset.medium || '';
-  size.textContent = card.dataset.size ? `Artwork: ${card.dataset.size}` : '';
-  frame.textContent = card.dataset.frame || '';
-  status.textContent = card.dataset.status || '';
-  inquiry.textContent = card.dataset.title === 'Composition in Bleu' ? 'Inquire about prints' : 'Pricing by inquiry';
-  resetArtworkZoom();
-  lightbox.classList.add('active');
-  lightbox.setAttribute('aria-hidden','false');
-  document.body.style.overflow='hidden';
-}));
+cards.forEach(card => {
+  card.addEventListener('click', () => {
+    const workTitle = card.dataset.title || '';
+
+    image.src = card.dataset.img;
+    image.alt = workTitle;
+    title.textContent = workTitle;
+    medium.textContent = card.dataset.medium || '';
+    size.textContent = card.dataset.size && card.dataset.size !== 'Details available by inquiry'
+      ? `Artwork: ${card.dataset.size}`
+      : card.dataset.size || '';
+    frame.textContent = card.dataset.frame || '';
+    print.textContent = card.dataset.print ? `Fine art print: ${card.dataset.print}` : '';
+    status.textContent = card.dataset.status || '';
+
+    inquiry.href = buildInquiryLink(workTitle);
+    inquiry.textContent = card.dataset.status?.includes('Prints only') || card.dataset.status?.includes('Original not available')
+      ? 'Inquire about a print'
+      : 'Inquire about this work';
+
+    resetArtworkZoom();
+    lightbox.classList.add('active');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  });
+});
 
 closeBtn.addEventListener('click', closeLightbox);
 backdrop.addEventListener('click', closeLightbox);
-document.addEventListener('keydown', e => {
-  if(e.key === 'Escape') closeLightbox();
-  if(!lightbox.classList.contains('active')) return;
-  if(e.key === '+' || e.key === '=') setArtworkZoom(zoomLevel + ZOOM_STEP);
-  if(e.key === '-' || e.key === '_') setArtworkZoom(zoomLevel - ZOOM_STEP);
-  if(e.key === '0') resetArtworkZoom();
+
+inquiry.addEventListener('click', () => {
+  window.setTimeout(closeLightbox, 100);
 });
-inquiry.addEventListener('click', closeLightbox);
+
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape') closeLightbox();
+  if (!lightbox.classList.contains('active')) return;
+
+  if (event.key === '+' || event.key === '=') setArtworkZoom(zoomLevel + ZOOM_STEP);
+  if (event.key === '-' || event.key === '_') setArtworkZoom(zoomLevel - ZOOM_STEP);
+  if (event.key === '0') resetArtworkZoom();
+});
 
 zoomInBtn?.addEventListener('click', event => {
   event.stopPropagation();
   setArtworkZoom(zoomLevel + ZOOM_STEP);
 });
+
 zoomOutBtn?.addEventListener('click', event => {
   event.stopPropagation();
   setArtworkZoom(zoomLevel - ZOOM_STEP);
 });
+
 zoomResetBtn?.addEventListener('click', event => {
   event.stopPropagation();
   resetArtworkZoom();
 });
 
 lightboxViewport?.addEventListener('wheel', event => {
-  if(!lightbox.classList.contains('active')) return;
+  if (!lightbox.classList.contains('active')) return;
   event.preventDefault();
   const direction = event.deltaY < 0 ? 1 : -1;
   setArtworkZoom(zoomLevel + direction * 0.25);
-}, { passive:false });
+}, { passive: false });
 
 image.addEventListener('pointerdown', event => {
-  if(zoomLevel <= 1) return;
+  if (zoomLevel <= 1) return;
+
   isDraggingArtwork = true;
   dragMoved = false;
   dragStartX = event.clientX;
@@ -136,31 +178,41 @@ image.addEventListener('pointerdown', event => {
 });
 
 image.addEventListener('pointermove', event => {
-  if(!isDraggingArtwork) return;
+  if (!isDraggingArtwork) return;
+
   const dx = event.clientX - dragStartX;
   const dy = event.clientY - dragStartY;
-  if(Math.abs(dx) > 3 || Math.abs(dy) > 3) dragMoved = true;
+
+  if (Math.abs(dx) > 3 || Math.abs(dy) > 3) dragMoved = true;
+
   panX = dragOriginX + dx;
   panY = dragOriginY + dy;
   renderArtworkZoom();
 });
 
-function endArtworkDrag(event){
-  if(!isDraggingArtwork) return;
+function endArtworkDrag(event) {
+  if (!isDraggingArtwork) return;
+
   isDraggingArtwork = false;
   image.classList.remove('is-dragging');
-  try { image.releasePointerCapture?.(event.pointerId); } catch(_) {}
+
+  try {
+    image.releasePointerCapture?.(event.pointerId);
+  } catch (_) {}
 }
+
 image.addEventListener('pointerup', endArtworkDrag);
 image.addEventListener('pointercancel', endArtworkDrag);
 
 image.addEventListener('click', event => {
   event.stopPropagation();
-  if(dragMoved){
+
+  if (dragMoved) {
     dragMoved = false;
     return;
   }
-  if(zoomLevel === 1) setArtworkZoom(2);
+
+  if (zoomLevel === 1) setArtworkZoom(2);
   else resetArtworkZoom();
 });
 
@@ -171,7 +223,7 @@ image.addEventListener('dblclick', event => {
 });
 
 window.addEventListener('resize', () => {
-  if(lightbox.classList.contains('active')) renderArtworkZoom();
+  if (lightbox.classList.contains('active')) renderArtworkZoom();
 });
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -190,6 +242,7 @@ if (!reducedMotion && finePointer) {
   const animateScene = () => {
     currentX += (targetX - currentX) * 0.12;
     currentY += (targetY - currentY) * 0.12;
+
     const nx = (currentX / window.innerWidth - 0.5) * 2;
     const ny = (currentY / window.innerHeight - 0.5) * 2;
 
@@ -198,17 +251,38 @@ if (!reducedMotion && finePointer) {
       const baseRotate = Number(item.dataset.rotate || 0);
       const extraRotate = nx * 6 + ny * 4;
       const scale = 1 + Math.abs(nx * 0.035) + Math.abs(ny * 0.035);
+
       item.style.transform = `translate3d(${nx * depth}px, ${ny * depth}px, 0) rotate(${baseRotate + extraRotate}deg) scale(${scale})`;
     });
 
-    if (cursorGlow) { cursorGlow.style.left = `${currentX}px`; cursorGlow.style.top = `${currentY}px`; }
-    if (cursorGlowTwo) { cursorGlowTwo.style.left = `${currentX}px`; cursorGlowTwo.style.top = `${currentY}px`; }
-    if (cursorRing) { cursorRing.style.left = `${currentX}px`; cursorRing.style.top = `${currentY}px`; }
+    if (cursorGlow) {
+      cursorGlow.style.left = `${currentX}px`;
+      cursorGlow.style.top = `${currentY}px`;
+    }
+
+    if (cursorGlowTwo) {
+      cursorGlowTwo.style.left = `${currentX}px`;
+      cursorGlowTwo.style.top = `${currentY}px`;
+    }
+
+    if (cursorRing) {
+      cursorRing.style.left = `${currentX}px`;
+      cursorRing.style.top = `${currentY}px`;
+    }
+
     requestAnimationFrame(animateScene);
   };
 
-  window.addEventListener('mousemove', event => { targetX = event.clientX; targetY = event.clientY; }, { passive:true });
-  window.addEventListener('mouseleave', () => { targetX = window.innerWidth / 2; targetY = window.innerHeight / 2; });
+  window.addEventListener('mousemove', event => {
+    targetX = event.clientX;
+    targetY = event.clientY;
+  }, { passive: true });
+
+  window.addEventListener('mouseleave', () => {
+    targetX = window.innerWidth / 2;
+    targetY = window.innerHeight / 2;
+  });
+
   requestAnimationFrame(animateScene);
 
   if (collectionSection && gallerySpotlight) {
@@ -216,28 +290,32 @@ if (!reducedMotion && finePointer) {
       const rect = collectionSection.getBoundingClientRect();
       gallerySpotlight.style.left = `${event.clientX - rect.left}px`;
       gallerySpotlight.style.top = `${event.clientY - rect.top}px`;
-    }, { passive:true });
+    }, { passive: true });
   }
 
   cards.forEach(card => {
     const cardImage = card.querySelector('.art-stage img');
     const cardMeta = card.querySelector('.art-meta');
+
     card.addEventListener('mousemove', event => {
       const rect = card.getBoundingClientRect();
       const px = (event.clientX - rect.left) / rect.width;
       const py = (event.clientY - rect.top) / rect.height;
       const dx = px - 0.5;
       const dy = py - 0.5;
+
       card.style.transform = `perspective(1400px) rotateX(${-dy * 13}deg) rotateY(${dx * 15}deg) translateY(-12px) scale(1.025)`;
       card.style.setProperty('--shine-x', `${px * 100}%`);
       card.style.setProperty('--shine-y', `${py * 100}%`);
+
       if (cardImage) cardImage.style.transform = `translate3d(${dx * -24}px, ${dy * -20}px, 26px) scale(1.07)`;
       if (cardMeta) cardMeta.style.transform = `translate3d(${dx * 10}px, ${dy * 8}px, 24px)`;
     });
+
     card.addEventListener('mouseleave', () => {
       card.style.transform = '';
-      card.style.setProperty('--shine-x','50%');
-      card.style.setProperty('--shine-y','30%');
+      card.style.setProperty('--shine-x', '50%');
+      card.style.setProperty('--shine-y', '30%');
       if (cardImage) cardImage.style.transform = '';
       if (cardMeta) cardMeta.style.transform = '';
     });
@@ -245,6 +323,7 @@ if (!reducedMotion && finePointer) {
 }
 
 const revealItems = document.querySelectorAll('.reveal');
+
 if ('IntersectionObserver' in window && !reducedMotion) {
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
@@ -253,8 +332,9 @@ if ('IntersectionObserver' in window && !reducedMotion) {
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold:0.12, rootMargin:'0px 0px -30px 0px' });
-  revealItems.forEach(el => observer.observe(el));
+  }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+
+  revealItems.forEach(element => observer.observe(element));
 } else {
-  revealItems.forEach(el => el.classList.add('visible'));
+  revealItems.forEach(element => element.classList.add('visible'));
 }
