@@ -8,6 +8,10 @@ const frame = document.getElementById('lightboxFrame');
 const print = document.getElementById('lightboxPrint');
 const status = document.getElementById('lightboxStatus');
 const inquiry = document.getElementById('lightboxInquiry');
+const printShop = document.getElementById('printShop');
+const printSizeSelect = document.getElementById('printSizeSelect');
+const printPrice = document.getElementById('printPrice');
+const etsyBuyButton = document.getElementById('etsyBuyButton');
 const closeBtn = document.getElementById('closeLightbox');
 const backdrop = lightbox.querySelector('.lightbox-backdrop');
 const gallerySpotlight = document.querySelector('.gallery-spotlight');
@@ -19,6 +23,59 @@ const zoomResetBtn = document.getElementById('zoomReset');
 
 const CONTACT_EMAIL = 'maisonregardbleu@gmail.com';
 const CC_EMAIL = 'jslisz.drip@outlook.com';
+
+const PRINT_PRODUCTS = {};
+
+function renderPrintShop(workTitle) {
+  const product = PRINT_PRODUCTS[workTitle];
+
+  if (!product) {
+    printShop.hidden = true;
+    return;
+  }
+
+  printShop.hidden = false;
+  printSizeSelect.innerHTML = '';
+
+  product.sizes.forEach((option, index) => {
+    const choice = document.createElement('option');
+    choice.value = index;
+    choice.textContent = `${option.label} — ${option.price}`;
+    printSizeSelect.appendChild(choice);
+  });
+
+  printPrice.textContent = product.sizes[0].price;
+
+  if (product.etsyUrl) {
+    etsyBuyButton.href = product.etsyUrl;
+    etsyBuyButton.textContent = 'Buy on Etsy';
+    etsyBuyButton.classList.remove('is-disabled');
+    etsyBuyButton.setAttribute('aria-disabled', 'false');
+    etsyBuyButton.target = '_blank';
+    etsyBuyButton.rel = 'noopener noreferrer';
+  } else {
+    etsyBuyButton.href = '#';
+    etsyBuyButton.textContent = 'Available on Etsy Soon';
+    etsyBuyButton.classList.add('is-disabled');
+    etsyBuyButton.setAttribute('aria-disabled', 'true');
+    etsyBuyButton.removeAttribute('target');
+    etsyBuyButton.removeAttribute('rel');
+  }
+}
+
+printSizeSelect?.addEventListener('change', () => {
+  const workTitle = title.textContent;
+  const product = PRINT_PRODUCTS[workTitle];
+  if (!product) return;
+
+  const selected = product.sizes[Number(printSizeSelect.value)];
+  if (selected) printPrice.textContent = selected.price;
+});
+
+etsyBuyButton?.addEventListener('click', event => {
+  if (etsyBuyButton.getAttribute('aria-disabled') === 'true') event.preventDefault();
+});
+
 
 let zoomLevel = 1;
 let panX = 0;
@@ -114,8 +171,10 @@ cards.forEach(card => {
     print.textContent = card.dataset.print ? `Fine art print: ${card.dataset.print}` : '';
     status.textContent = card.dataset.status || '';
 
+    renderPrintShop(workTitle);
+
     inquiry.href = buildInquiryLink(workTitle);
-    inquiry.textContent = card.dataset.status?.includes('Prints only') || card.dataset.status?.includes('Original not available')
+    inquiry.textContent = PRINT_PRODUCTS[workTitle] || card.dataset.status?.includes('Prints only') || card.dataset.status?.includes('Original not available') || card.dataset.status?.includes('Original sold')
       ? 'Inquire about a print'
       : 'Inquire about this work';
 

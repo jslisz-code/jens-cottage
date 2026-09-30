@@ -495,17 +495,64 @@ nav a:hover::after { width: 100%; }
 
 /* Footer */
 footer {
-  padding: 34px 0 22px;
+  padding: 38px 0 22px;
   background: #1f1714;
   border-top: 1px solid rgba(216,173,109,.17);
   color: rgba(244,228,207,.58);
+  text-align: center;
 }
-.footer-wrap { display: flex; justify-content: space-between; align-items: center; font-size: 12px; text-transform: uppercase; letter-spacing: .12em; }
-.footer-name { font: 500 25px 'Cormorant Garamond', serif; text-transform: none; letter-spacing: 0; color: #f1d6b0; }
+.footer-signature {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 18px;
+  margin-bottom: 3px;
+}
+.footer-signature img {
+  display: block;
+  width: 22px;
+  height: auto;
+  object-fit: contain;
+  filter: none;
+}
+.footer-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 28px;
+  margin-bottom: 24px;
+}
+.footer-links a {
+  color: #f7ead8;
+  text-decoration: none;
+  font: 500 16px 'Inter', sans-serif;
+  transition: color .2s ease, transform .2s ease;
+}
+.footer-links a:hover {
+  color: #ddb071;
+  transform: translateY(-1px);
+}
+.footer-identity {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+}
+.footer-name {
+  font: 500 24px 'Cormorant Garamond', serif;
+  text-transform: none;
+  letter-spacing: 0;
+  color: #f1d6b0;
+}
 .footer-credit {
-  margin-top: 24px;
-  padding-top: 18px;
-  border-top: 1px solid rgba(216,173,109,.12);
+  margin-top: 0;
+  padding-top: 4px;
+  border-top: none;
   text-align: center;
   font-size: 10px;
   letter-spacing: .11em;
@@ -667,8 +714,11 @@ footer {
   .hero-copy { padding: 80px 0; }
   .gallery-grid { grid-template-columns: 1fr; }
   .art-card { grid-column: 1; }
-  .footer-wrap { flex-direction: column; gap: 10px; align-items: flex-start; }
-  .footer-credit { text-align: left; font-size: 9px; line-height: 1.6; }
+  .footer-signature img { width: 66px; }
+  .footer-links { gap: 16px 22px; }
+  .footer-links a { font-size: 15px; }
+  .footer-identity { flex-direction: column; align-items: center; gap: 7px; }
+  .footer-credit { text-align: center; font-size: 9px; line-height: 1.6; }
   .section-title-row p { font-size: 19px; }
   .ornament { opacity: .62; }
   .cursor-glow, .cursor-ring { display: none; }
@@ -695,6 +745,129 @@ footer {
   .lightbox figure img, .zoom-controls button { transition: none; }
 }
 
-.blue-emphasis {
-  color: #3b82f6;
+/* Print shop / Etsy purchase panel */
+.lightbox figcaption {
+  max-height: 90vh;
+  overflow-y: auto;
 }
+
+.print-shop {
+  margin: 24px 0 20px;
+  padding: 22px;
+  border: 1px solid rgba(231, 201, 155, 0.28);
+  border-radius: 6px;
+  background: radial-gradient(circle at 20% 0%, rgba(216, 173, 109, 0.12), transparent 45%), rgba(255, 255, 255, 0.035);
+}
+
+.print-shop[hidden] { display: none; }
+
+.print-shop-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-bottom: 18px;
+}
+
+.print-shop-heading span {
+  color: rgba(247, 232, 210, 0.58);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.print-shop-heading strong {
+  color: #f7e8d2;
+  font: 500 26px/1.15 'Cormorant Garamond', serif;
+}
+
+.print-size-label {
+  display: block;
+  margin-bottom: 7px;
+  color: rgba(247, 232, 210, 0.68);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.print-size-select {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid rgba(231, 201, 155, 0.3);
+  border-radius: 4px;
+  outline: none;
+  background: #211713;
+  color: #f7e8d2;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.print-size-select:focus { border-color: rgba(231, 201, 155, 0.7); }
+
+.print-price-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 18px 0;
+  padding-top: 16px;
+  border-top: 1px solid rgba(231, 201, 155, 0.18);
+}
+
+.print-price-row span {
+  color: rgba(247, 232, 210, 0.62);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.print-price-row strong {
+  color: #f2cf95;
+  font: 500 28px/1 'Cormorant Garamond', serif;
+}
+
+.etsy-buy-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 48px;
+  padding: 13px 18px;
+  border: 1px solid #c99654;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #bd9157, #8b6238);
+  color: #fff8ed;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.etsy-buy-button:not(.is-disabled):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.3);
+}
+
+.etsy-buy-button.is-disabled {
+  opacity: 0.52;
+  cursor: default;
+  background: rgba(183, 138, 79, 0.18);
+  border-color: rgba(231, 201, 155, 0.25);
+}
+
+.print-shop-note {
+  margin: 12px 0 0;
+  color: rgba(247, 232, 210, 0.48);
+  font-size: 11px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+@media (max-width: 620px) {
+  .print-shop { padding: 18px; }
+  .print-shop-heading strong { font-size: 23px; }
+  .print-price-row strong { font-size: 25px; }
+}
+
