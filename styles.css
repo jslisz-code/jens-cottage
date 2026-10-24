@@ -369,21 +369,43 @@ button {
 }
 
 .morphing-shop-logo {
+  --logo-x: 0px;
+  --logo-y: 0px;
+  --logo-scale: 1;
+
   position: fixed;
   top: 20px;
   left: max(4vw, calc((100vw - 1220px) / 2));
-  z-index: 130;
+
+  z-index: 9999;
+
   width: 42px;
   height: 42px;
+
   display: grid;
   place-items: center;
+
   border-radius: 50%;
   overflow: hidden;
+
   background: #f4ead9;
   border: 1px solid rgba(231, 189, 128, 0.52);
-  box-shadow: 0 6px 18px rgba(24, 14, 10, 0.14);
+
+  box-shadow:
+    0 6px 18px rgba(24, 14, 10, 0.14);
+
+  transform:
+    translate3d(
+      var(--logo-x),
+      var(--logo-y),
+      0
+    )
+    scale(var(--logo-scale));
+
+  transform-origin: center;
+  will-change: transform;
+
   transition:
-    transform 0.25s ease,
     box-shadow 0.25s ease,
     border-color 0.25s ease;
 }
@@ -407,9 +429,10 @@ body.logo-docked .brand-wordmark {
 }
 
 .morphing-shop-logo:hover {
-  transform: scale(1.07);
   border-color: #e7bd80;
-  box-shadow: 0 10px 26px rgba(24, 14, 10, 0.28);
+  box-shadow:
+    0 10px 26px rgba(24, 14, 10, 0.28),
+    0 0 0 5px rgba(244, 234, 217, 0.12);
 }
 
 /* Hero */
