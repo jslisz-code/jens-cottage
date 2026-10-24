@@ -122,61 +122,24 @@ const PRINT_PRODUCTS = {
   }
 };
 
-function renderPrintShop(workTitle) {
-  const product = PRINT_PRODUCTS[workTitle];
+const PRINTIFY_STORE_URL = 'https://maisonregardbleu.printify.me';
 
-  if (!product) {
-    printShop.hidden = true;
-    return;
-  }
+function renderPrintShop() {
+  if (!printShop || !etsyBuyButton) return;
 
   printShop.hidden = false;
-  printSizeSelect.innerHTML = '';
 
-  product.sizes.forEach((option, index) => {
-    const choice = document.createElement('option');
-    choice.value = index;
-    choice.textContent = `${option.label} — ${option.price}`;
-    printSizeSelect.appendChild(choice);
-  });
+  etsyBuyButton.href = PRINTIFY_STORE_URL;
+  etsyBuyButton.textContent = 'Shop Prints';
+  etsyBuyButton.classList.remove('is-disabled');
+  etsyBuyButton.setAttribute('aria-disabled', 'false');
+  etsyBuyButton.target = '_blank';
+  etsyBuyButton.rel = 'noopener noreferrer';
 
-  printPrice.textContent = product.sizes[0].price;
-
-  if (product.etsyUrl) {
-    etsyBuyButton.href = product.etsyUrl;
-    etsyBuyButton.textContent = 'Buy on Etsy';
-    etsyBuyButton.classList.remove('is-disabled');
-    etsyBuyButton.setAttribute('aria-disabled', 'false');
-    etsyBuyButton.target = '_blank';
-    etsyBuyButton.rel = 'noopener noreferrer';
-  } else {
-    etsyBuyButton.href = '#';
-    etsyBuyButton.textContent = 'Available on Etsy Soon';
-    etsyBuyButton.classList.add('is-disabled');
-    etsyBuyButton.setAttribute('aria-disabled', 'true');
-    etsyBuyButton.removeAttribute('target');
-    etsyBuyButton.removeAttribute('rel');
+  if (printSizeSelect) {
+    printSizeSelect.closest('.print-shop')?.classList.add('store-linked');
   }
 }
-
-printSizeSelect?.addEventListener('change', () => {
-  const workTitle = title.textContent;
-  const product = PRINT_PRODUCTS[workTitle];
-
-  if (!product) return;
-
-  const selected = product.sizes[Number(printSizeSelect.value)];
-
-  if (selected) {
-    printPrice.textContent = selected.price;
-  }
-});
-
-etsyBuyButton?.addEventListener('click', event => {
-  if (etsyBuyButton.getAttribute('aria-disabled') === 'true') {
-    event.preventDefault();
-  }
-});
 
 let zoomLevel = 1;
 let panX = 0;
