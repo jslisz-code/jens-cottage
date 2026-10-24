@@ -24,10 +24,41 @@ const zoomResetBtn = document.getElementById("zoomReset");
 const morphingShopLogo = document.getElementById("morphingShopLogo");
 
 function updateMorphingShopLogo() {
-  document.body.classList.toggle("logo-docked", window.scrollY > 110);
+  if (!morphingShopLogo) return;
+
+  const isMobile = window.innerWidth <= 620;
+  const travelDistance = isMobile ? 220 : 320;
+  const rawProgress = Math.min(Math.max(window.scrollY / travelDistance, 0), 1);
+  const progress = rawProgress * rawProgress * (3 - 2 * rawProgress);
+
+  const startLeft = isMobile
+    ? 12
+    : Math.max(window.innerWidth * 0.04, (window.innerWidth - 1220) / 2);
+
+  const endLeft = isMobile
+    ? window.innerWidth - 46
+    : window.innerWidth - 58;
+
+  const startTop = isMobile ? 14 : 20;
+  const endTop = isMobile ? 12 : 14;
+
+  const startSize = isMobile ? 38 : 42;
+  const endSize = isMobile ? 32 : 36;
+
+  const left = startLeft + (endLeft - startLeft) * progress;
+  const top = startTop + (endTop - startTop) * progress;
+  const size = startSize + (endSize - startSize) * progress;
+
+  morphingShopLogo.style.left = `${left}px`;
+  morphingShopLogo.style.top = `${top}px`;
+  morphingShopLogo.style.width = `${size}px`;
+  morphingShopLogo.style.height = `${size}px`;
+
+  document.body.classList.toggle("logo-docked", rawProgress >= 0.98);
 }
 
 window.addEventListener("scroll", updateMorphingShopLogo, { passive: true });
+window.addEventListener("resize", updateMorphingShopLogo);
 updateMorphingShopLogo();
 
 const CONTACT_EMAIL = "maisonregardbleu@gmail.com";
