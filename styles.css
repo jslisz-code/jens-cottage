@@ -391,15 +391,9 @@ button {
   background: #f4ead9;
   border: 1px solid rgba(231, 189, 128, 0.52);
 
-  box-shadow:
-    0 6px 18px rgba(24, 14, 10, 0.14);
+  box-shadow: 0 6px 18px rgba(24, 14, 10, 0.14);
 
-  transform:
-    translate3d(
-      var(--logo-x),
-      var(--logo-y),
-      0
-    )
+  transform: translate3d(var(--logo-x), var(--logo-y), 0)
     scale(var(--logo-scale));
 
   transform-origin: center;
