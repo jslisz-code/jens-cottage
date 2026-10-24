@@ -385,10 +385,10 @@ button {
   border: 1px solid rgba(231, 189, 128, 0.52);
   box-shadow: 0 6px 18px rgba(24, 14, 10, 0.14);
   transition:
-    left 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-    top 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-    width 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-    height 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    left 1.15s cubic-bezier(0.22, 1, 0.36, 1),
+    top 1.15s cubic-bezier(0.22, 1, 0.36, 1),
+    width 1.15s cubic-bezier(0.22, 1, 0.36, 1),
+    height 1.15s cubic-bezier(0.22, 1, 0.36, 1),
     transform 0.25s ease,
     box-shadow 0.25s ease,
     border-color 0.25s ease;
@@ -402,10 +402,10 @@ button {
 }
 
 body.logo-docked .morphing-shop-logo {
-  top: 23px;
-  left: calc(100vw - 52px);
-  width: 34px;
-  height: 34px;
+  top: 96px;
+  left: calc(100vw - 58px);
+  width: 36px;
+  height: 36px;
   border-color: rgba(231, 189, 128, 0.82);
   box-shadow:
     0 8px 22px rgba(24, 14, 10, 0.24),
@@ -1349,7 +1349,7 @@ footer {
   }
 
   body.logo-docked .morphing-shop-logo {
-    top: 14px;
+    top: 116px;
     left: calc(100vw - 46px);
     width: 32px;
     height: 32px;
