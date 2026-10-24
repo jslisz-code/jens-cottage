@@ -1,141 +1,177 @@
-const cards = document.querySelectorAll('.art-card');
-const lightbox = document.getElementById('lightbox');
-const image = document.getElementById('lightboxImage');
-const title = document.getElementById('lightboxTitle');
-const medium = document.getElementById('lightboxMedium');
-const size = document.getElementById('lightboxSize');
-const frame = document.getElementById('lightboxFrame');
-const print = document.getElementById('lightboxPrint');
-const status = document.getElementById('lightboxStatus');
-const inquiry = document.getElementById('lightboxInquiry');
-const printShop = document.getElementById('printShop');
-const printSizeSelect = document.getElementById('printSizeSelect');
-const printPrice = document.getElementById('printPrice');
-const etsyBuyButton = document.getElementById('etsyBuyButton');
-const closeBtn = document.getElementById('closeLightbox');
-const backdrop = lightbox.querySelector('.lightbox-backdrop');
-const gallerySpotlight = document.querySelector('.gallery-spotlight');
-const collectionSection = document.querySelector('.collection');
-const lightboxViewport = document.getElementById('lightboxViewport');
-const zoomInBtn = document.getElementById('zoomIn');
-const zoomOutBtn = document.getElementById('zoomOut');
-const zoomResetBtn = document.getElementById('zoomReset');
+const cards = document.querySelectorAll(".art-card");
+const lightbox = document.getElementById("lightbox");
+const image = document.getElementById("lightboxImage");
+const title = document.getElementById("lightboxTitle");
+const medium = document.getElementById("lightboxMedium");
+const size = document.getElementById("lightboxSize");
+const frame = document.getElementById("lightboxFrame");
+const print = document.getElementById("lightboxPrint");
+const status = document.getElementById("lightboxStatus");
+const inquiry = document.getElementById("lightboxInquiry");
+const printShop = document.getElementById("printShop");
+const printSizeSelect = document.getElementById("printSizeSelect");
+const printPrice = document.getElementById("printPrice");
+const etsyBuyButton = document.getElementById("etsyBuyButton");
+const closeBtn = document.getElementById("closeLightbox");
+const backdrop = lightbox.querySelector(".lightbox-backdrop");
+const gallerySpotlight = document.querySelector(".gallery-spotlight");
+const collectionSection = document.querySelector(".collection");
+const lightboxViewport = document.getElementById("lightboxViewport");
+const zoomInBtn = document.getElementById("zoomIn");
+const zoomOutBtn = document.getElementById("zoomOut");
+const zoomResetBtn = document.getElementById("zoomReset");
 
-const CONTACT_EMAIL = 'maisonregardbleu@gmail.com';
-const CC_EMAIL = 'jslisz.drip@outlook.com';
+const CONTACT_EMAIL = "maisonregardbleu@gmail.com";
+const CC_EMAIL = "jslisz.drip@outlook.com";
 
 const PRINT_PRODUCTS = {
-  'Subtle Confusion': {
+  "Subtle Confusion": {
     sizes: [
-      { label: '11" × 22"', price: '$24.99' },
-      { label: '15" × 30"', price: '$44.99' },
-      { label: '20" × 40"', price: '$64.99' }
-    ]
+      { label: '11" × 22"', price: "$24.99" },
+      { label: '15" × 30"', price: "$44.99" },
+      { label: '20" × 40"', price: "$64.99" },
+    ],
   },
-  'Pieces of Me': {
+  "Pieces of Me": {
     sizes: [
-      { label: '11" × 14"', price: '$24.99' },
-      { label: '16" × 20"', price: '$44.99' },
-      { label: '22" × 28"', price: '$64.99' }
-    ]
+      { label: '11" × 14"', price: "$24.99" },
+      { label: '16" × 20"', price: "$44.99" },
+      { label: '22" × 28"', price: "$64.99" },
+    ],
   },
-  'Étude en Aqua': {
+  "Étude en Aqua": {
     sizes: [
-      { label: '12" × 16"', price: '$24.99' },
-      { label: '18" × 24"', price: '$44.99' },
-      { label: '24" × 32"', price: '$64.99' }
-    ]
+      { label: '12" × 16"', price: "$24.99" },
+      { label: '18" × 24"', price: "$44.99" },
+      { label: '24" × 32"', price: "$64.99" },
+    ],
   },
-  'Through the Looking Glass': {
+  "Through the Looking Glass": {
     sizes: [
-      { label: '8" × 10"', price: '$24.99' },
-      { label: '16" × 20"', price: '$44.99' },
-      { label: '24" × 30"', price: '$64.99' }
-    ]
+      { label: '8" × 10"', price: "$24.99" },
+      { label: '16" × 20"', price: "$44.99" },
+      { label: '24" × 30"', price: "$64.99" },
+    ],
   },
-  'Self Portrait': {
+  "Self Portrait": {
     sizes: [
-      { label: '11" × 22"', price: '$24.99' },
-      { label: '15" × 30"', price: '$44.99' },
-      { label: '20" × 40"', price: '$64.99' }
-    ]
+      { label: '11" × 22"', price: "$24.99" },
+      { label: '15" × 30"', price: "$44.99" },
+      { label: '20" × 40"', price: "$64.99" },
+    ],
   },
-  'Every Part of Me': {
+  "Every Part of Me": {
     sizes: [
-      { label: '17" × 20"', price: '$24.99' },
-      { label: '20" × 24"', price: '$44.99' },
-      { label: '24" × 30"', price: '$64.99' }
-    ]
+      { label: '17" × 20"', price: "$24.99" },
+      { label: '20" × 24"', price: "$44.99" },
+      { label: '24" × 30"', price: "$64.99" },
+    ],
   },
-  'Modern Muse': {
+  "Modern Muse": {
     sizes: [
-      { label: '8" × 12"', price: '$24.99' },
-      { label: '12" × 18"', price: '$44.99' },
-      { label: '24" × 36"', price: '$64.99' }
-    ]
+      { label: '8" × 12"', price: "$24.99" },
+      { label: '12" × 18"', price: "$44.99" },
+      { label: '24" × 36"', price: "$64.99" },
+    ],
   },
-  'Bleu Tunes in My Cello Head': {
+  "Bleu Tunes in My Cello Head": {
     sizes: [
-      { label: '17" × 20"', price: '$24.99' },
-      { label: '20" × 24"', price: '$44.99' },
-      { label: '24" × 30"', price: '$64.99' }
-    ]
+      { label: '17" × 20"', price: "$24.99" },
+      { label: '20" × 24"', price: "$44.99" },
+      { label: '24" × 30"', price: "$64.99" },
+    ],
   },
-  'Seperate': {
+  Seperate: {
     sizes: [
-      { label: '12" × 16"', price: '$24.99' },
-      { label: '18" × 24"', price: '$44.99' },
-      { label: '24" × 32"', price: '$64.99' }
-    ]
+      { label: '12" × 16"', price: "$24.99" },
+      { label: '18" × 24"', price: "$44.99" },
+      { label: '24" × 32"', price: "$64.99" },
+    ],
   },
-  'Arc et Forme': {
+  "Arc et Forme": {
     sizes: [
-      { label: '14" × 11"', price: '$24.99' },
-      { label: '20" × 16"', price: '$44.99' },
-      { label: '28" × 22"', price: '$64.99' }
-    ]
+      { label: '14" × 11"', price: "$24.99" },
+      { label: '20" × 16"', price: "$44.99" },
+      { label: '28" × 22"', price: "$64.99" },
+    ],
   },
-  'Le Regard': {
+  "Le Regard": {
     sizes: [
-      { label: '12" × 18"', price: '$24.99' },
-      { label: '20" × 30"', price: '$44.99' },
-      { label: '27" × 40"', price: '$64.99' }
-    ]
+      { label: '12" × 18"', price: "$24.99" },
+      { label: '20" × 30"', price: "$44.99" },
+      { label: '27" × 40"', price: "$64.99" },
+    ],
   },
-  'The Break Up': {
+  "The Break Up": {
     sizes: [
-      { label: '17" × 20"', price: '$24.99' },
-      { label: '20" × 24"', price: '$44.99' },
-      { label: '24" × 30"', price: '$64.99' }
-    ]
+      { label: '17" × 20"', price: "$24.99" },
+      { label: '20" × 24"', price: "$44.99" },
+      { label: '24" × 30"', price: "$64.99" },
+    ],
   },
-  'After the Beach': {
+  "After the Beach": {
     sizes: [
-      { label: '18" × 24"', price: '$24.99' },
-      { label: '22" × 28"', price: '$44.99' },
-      { label: '27" × 40"', price: '$64.99' }
-    ]
+      { label: '18" × 24"', price: "$24.99" },
+      { label: '22" × 28"', price: "$44.99" },
+      { label: '27" × 40"', price: "$64.99" },
+    ],
   },
-  'Forgot to Play': {
+  "Forgot to Play": {
     sizes: [
-      { label: '8" × 10"', price: '$24.99' },
-      { label: '16" × 20"', price: '$44.99' },
-      { label: '24" × 30"', price: '$64.99' }
-    ]
+      { label: '8" × 10"', price: "$24.99" },
+      { label: '16" × 20"', price: "$44.99" },
+      { label: '24" × 30"', price: "$64.99" },
+    ],
   },
-  'Tin Man': {
+  "Tin Man": {
     sizes: [
-      { label: '17" × 20"', price: '$24.99' },
-      { label: '20" × 24"', price: '$44.99' },
-      { label: '24" × 30"', price: '$64.99' }
-    ]
-  }
+      { label: '17" × 20"', price: "$24.99" },
+      { label: '20" × 24"', price: "$44.99" },
+      { label: '24" × 30"', price: "$64.99" },
+    ],
+  },
 };
 
-const PRINTIFY_STORE_URL = 'https://maisonregardbleu.printify.me';
+const PRINT_PREVIEWS = {
+  "Subtle Confusion": "images/print-preview-subtle-confusion.png",
+
+  "Pieces of Me": "images/print-preview-pieces-of-me.png",
+
+  "Étude en Aqua": "images/print-preview-etude-en-aqua.png",
+
+  "Through the Looking Glass":
+    "images/print-preview-through-the-looking-glass.png",
+
+  "Self Portrait": "images/print-preview-self-portrait.png",
+
+  "Every Part of Me": "images/print-preview-every-part-of-me.png",
+
+  "Modern Muse": "images/print-preview-modern-muse.png",
+
+  "Bleu Tunes in My Cello Head":
+    "images/print-preview-bleu-tunes-in-my-cello-head.png",
+
+  Seperate: "images/print-preview-seperate.png",
+
+  "Arc et Forme": "images/print-preview-arc-et-forme.png",
+
+  "Le Regard": "images/print-preview-le-regard.png",
+
+  "The Break Up": "images/print-preview-the-break-up.png",
+
+  "After the Beach": "images/print-preview-after-the-beach.png",
+
+  "Forgot to Play": "images/print-preview-forgot-to-play.png",
+
+  "Tin Man": "images/print-preview-tin-man.png",
+};
+
+const PRINTIFY_STORE_URL = "https://maisonregardbleu.printify.me";
 
 function renderPrintShop(workTitle) {
-  if (!printShop || !etsyBuyButton || !printSizeSelect || !printPrice) return;
+  if (!printShop || !etsyBuyButton || !printSizeSelect || !printPrice) {
+    return;
+  }
 
   const product = PRINT_PRODUCTS[workTitle];
 
@@ -145,30 +181,84 @@ function renderPrintShop(workTitle) {
   }
 
   printShop.hidden = false;
-  printSizeSelect.innerHTML = '';
+
+  let preview = document.getElementById("printPreview");
+
+  if (!preview) {
+    preview = document.createElement("div");
+
+    preview.id = "printPreview";
+    preview.className = "print-preview";
+
+    preview.innerHTML = `
+      <span class="print-preview-label">
+        Actual Print Preview
+      </span>
+
+      <img
+        id="printPreviewImage"
+        src=""
+        alt=""
+      />
+    `;
+
+    const heading = printShop.querySelector(".print-shop-heading");
+
+    heading?.insertAdjacentElement("afterend", preview);
+  }
+
+  const previewImage = document.getElementById("printPreviewImage");
+
+  const previewSource = PRINT_PREVIEWS[workTitle];
+
+  if (previewImage) {
+    preview.hidden = false;
+
+    previewImage.src = previewSource;
+
+    previewImage.alt = `${workTitle} actual print preview`;
+
+    previewImage.onerror = () => {
+      preview.hidden = true;
+    };
+
+    previewImage.onload = () => {
+      preview.hidden = false;
+    };
+  }
+
+  printSizeSelect.innerHTML = "";
 
   product.sizes.forEach((option, index) => {
-    const choice = document.createElement('option');
+    const choice = document.createElement("option");
+
     choice.value = index;
+
     choice.textContent = `${option.label} — ${option.price}`;
+
     printSizeSelect.appendChild(choice);
   });
 
-  printPrice.textContent = product.sizes[0]?.price || '';
+  printPrice.textContent = product.sizes[0]?.price || "";
 
   const firstSize = product.sizes[0];
 
   etsyBuyButton.href = PRINTIFY_STORE_URL;
+
   etsyBuyButton.textContent = firstSize
     ? `Buy ${firstSize.label} on Printify`
-    : 'Shop Prints';
-  etsyBuyButton.classList.remove('is-disabled');
-  etsyBuyButton.setAttribute('aria-disabled', 'false');
-  etsyBuyButton.target = '_blank';
-  etsyBuyButton.rel = 'noopener noreferrer';
+    : "Shop Prints";
+
+  etsyBuyButton.classList.remove("is-disabled");
+
+  etsyBuyButton.setAttribute("aria-disabled", "false");
+
+  etsyBuyButton.target = "_blank";
+
+  etsyBuyButton.rel = "noopener noreferrer";
 }
 
-printSizeSelect?.addEventListener('change', () => {
+printSizeSelect?.addEventListener("change", () => {
   const workTitle = title.textContent;
   const product = PRINT_PRODUCTS[workTitle];
   if (!product) return;
@@ -179,10 +269,10 @@ printSizeSelect?.addEventListener('change', () => {
 
     etsyBuyButton.href = PRINTIFY_STORE_URL;
     etsyBuyButton.textContent = `Buy ${selected.label} on Printify`;
-    etsyBuyButton.classList.remove('is-disabled');
-    etsyBuyButton.setAttribute('aria-disabled', 'false');
-    etsyBuyButton.target = '_blank';
-    etsyBuyButton.rel = 'noopener noreferrer';
+    etsyBuyButton.classList.remove("is-disabled");
+    etsyBuyButton.setAttribute("aria-disabled", "false");
+    etsyBuyButton.target = "_blank";
+    etsyBuyButton.rel = "noopener noreferrer";
   }
 });
 
@@ -200,14 +290,14 @@ const MIN_ZOOM = 1;
 const MAX_ZOOM = 4;
 const ZOOM_STEP = 0.5;
 
-function buildInquiryLink(workTitle = '') {
+function buildInquiryLink(workTitle = "") {
   const subject = workTitle
     ? `Maison du Regard Bleu inquiry: ${workTitle}`
-    : 'Maison du Regard Bleu inquiry';
+    : "Maison du Regard Bleu inquiry";
 
   const body = workTitle
     ? `Hello,\n\nI am interested in ${workTitle}. Please send me availability and purchase details.\n\nThank you.`
-    : 'Hello,\n\nI would like more information about Maison du Regard Bleu artwork.\n\nThank you.';
+    : "Hello,\n\nI would like more information about Maison du Regard Bleu artwork.\n\nThank you.";
 
   return `mailto:${CONTACT_EMAIL}?cc=${encodeURIComponent(CC_EMAIL)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
@@ -219,11 +309,9 @@ function clampArtworkPan() {
     return;
   }
 
-  const maxX =
-    (lightboxViewport.clientWidth * (zoomLevel - 1)) / 2;
+  const maxX = (lightboxViewport.clientWidth * (zoomLevel - 1)) / 2;
 
-  const maxY =
-    (lightboxViewport.clientHeight * (zoomLevel - 1)) / 2;
+  const maxY = (lightboxViewport.clientHeight * (zoomLevel - 1)) / 2;
 
   panX = Math.max(-maxX, Math.min(maxX, panX));
   panY = Math.max(-maxY, Math.min(maxY, panY));
@@ -232,37 +320,27 @@ function clampArtworkPan() {
 function renderArtworkZoom() {
   clampArtworkPan();
 
-  image.style.transform =
-    `translate3d(${panX}px, ${panY}px, 0) scale(${zoomLevel})`;
+  image.style.transform = `translate3d(${panX}px, ${panY}px, 0) scale(${zoomLevel})`;
 
-  image.classList.toggle('is-zoomed', zoomLevel > 1);
+  image.classList.toggle("is-zoomed", zoomLevel > 1);
 
-  lightboxViewport?.classList.toggle(
-    'has-zoom',
-    zoomLevel > 1
-  );
+  lightboxViewport?.classList.toggle("has-zoom", zoomLevel > 1);
 
   if (zoomResetBtn) {
-    zoomResetBtn.textContent =
-      `${Math.round(zoomLevel * 100)}%`;
+    zoomResetBtn.textContent = `${Math.round(zoomLevel * 100)}%`;
   }
 
   if (zoomOutBtn) {
-    zoomOutBtn.disabled =
-      zoomLevel <= MIN_ZOOM;
+    zoomOutBtn.disabled = zoomLevel <= MIN_ZOOM;
   }
 
   if (zoomInBtn) {
-    zoomInBtn.disabled =
-      zoomLevel >= MAX_ZOOM;
+    zoomInBtn.disabled = zoomLevel >= MAX_ZOOM;
   }
 }
 
 function setArtworkZoom(nextZoom) {
-  zoomLevel = Math.max(
-    MIN_ZOOM,
-    Math.min(MAX_ZOOM, nextZoom)
-  );
+  zoomLevel = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, nextZoom));
 
   if (zoomLevel === 1) {
     panX = 0;
@@ -279,7 +357,7 @@ function resetArtworkZoom() {
   isDraggingArtwork = false;
   dragMoved = false;
 
-  image.classList.remove('is-dragging');
+  image.classList.remove("is-dragging");
 
   renderArtworkZoom();
 }
@@ -287,259 +365,162 @@ function resetArtworkZoom() {
 function closeLightbox() {
   resetArtworkZoom();
 
-  lightbox.classList.remove('active');
+  lightbox.classList.remove("active");
 
-  lightbox.setAttribute(
-    'aria-hidden',
-    'true'
-  );
+  lightbox.setAttribute("aria-hidden", "true");
 
-  document.body.style.overflow = '';
+  document.body.style.overflow = "";
 }
 
-cards.forEach(card => {
-  card.addEventListener('click', () => {
-    const workTitle =
-      card.dataset.title || '';
+cards.forEach((card) => {
+  card.addEventListener("click", () => {
+    const workTitle = card.dataset.title || "";
 
-    image.src =
-      card.dataset.img;
+    image.src = card.dataset.img;
 
-    image.alt =
-      workTitle;
+    image.alt = workTitle;
 
-    title.textContent =
-      workTitle;
+    title.textContent = workTitle;
 
-    medium.textContent =
-      card.dataset.medium || '';
+    medium.textContent = card.dataset.medium || "";
 
     size.textContent =
-      card.dataset.size &&
-      card.dataset.size !==
-        'Details available by inquiry'
+      card.dataset.size && card.dataset.size !== "Details available by inquiry"
         ? `Artwork: ${card.dataset.size}`
-        : card.dataset.size || '';
+        : card.dataset.size || "";
 
-    frame.textContent =
-      card.dataset.frame || '';
+    frame.textContent = card.dataset.frame || "";
 
-    print.textContent =
-      card.dataset.print
-        ? `Fine art print: ${card.dataset.print}`
-        : '';
+    print.textContent = card.dataset.print
+      ? `Fine art print: ${card.dataset.print}`
+      : "";
 
-    status.textContent =
-      card.dataset.status || '';
+    status.textContent = card.dataset.status || "";
 
     renderPrintShop(workTitle);
 
-    inquiry.href =
-      buildInquiryLink(workTitle);
+    inquiry.href = buildInquiryLink(workTitle);
 
     inquiry.textContent =
       PRINT_PRODUCTS[workTitle] ||
-      card.dataset.status?.includes(
-        'Prints only'
-      ) ||
-      card.dataset.status?.includes(
-        'Original not available'
-      ) ||
-      card.dataset.status?.includes(
-        'Original sold'
-      )
-        ? 'Inquire about a print'
-        : 'Inquire about this work';
+      card.dataset.status?.includes("Prints only") ||
+      card.dataset.status?.includes("Original not available") ||
+      card.dataset.status?.includes("Original sold")
+        ? "Inquire about a print"
+        : "Inquire about this work";
 
     resetArtworkZoom();
 
-    lightbox.classList.add('active');
+    lightbox.classList.add("active");
 
-    lightbox.setAttribute(
-      'aria-hidden',
-      'false'
-    );
+    lightbox.setAttribute("aria-hidden", "false");
 
-    document.body.style.overflow =
-      'hidden';
+    document.body.style.overflow = "hidden";
   });
 });
 
-closeBtn.addEventListener(
-  'click',
-  closeLightbox
-);
+closeBtn.addEventListener("click", closeLightbox);
 
-backdrop.addEventListener(
-  'click',
-  closeLightbox
-);
+backdrop.addEventListener("click", closeLightbox);
 
-inquiry.addEventListener(
-  'click',
-  () => {
-    window.setTimeout(
-      closeLightbox,
-      100
-    );
+inquiry.addEventListener("click", () => {
+  window.setTimeout(closeLightbox, 100);
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    closeLightbox();
   }
-);
 
-document.addEventListener(
-  'keydown',
-  event => {
-    if (event.key === 'Escape') {
-      closeLightbox();
-    }
-
-    if (
-      !lightbox.classList.contains(
-        'active'
-      )
-    ) {
-      return;
-    }
-
-    if (
-      event.key === '+' ||
-      event.key === '='
-    ) {
-      setArtworkZoom(
-        zoomLevel + ZOOM_STEP
-      );
-    }
-
-    if (
-      event.key === '-' ||
-      event.key === '_'
-    ) {
-      setArtworkZoom(
-        zoomLevel - ZOOM_STEP
-      );
-    }
-
-    if (event.key === '0') {
-      resetArtworkZoom();
-    }
+  if (!lightbox.classList.contains("active")) {
+    return;
   }
-);
 
-zoomInBtn?.addEventListener(
-  'click',
-  event => {
-    event.stopPropagation();
-
-    setArtworkZoom(
-      zoomLevel + ZOOM_STEP
-    );
+  if (event.key === "+" || event.key === "=") {
+    setArtworkZoom(zoomLevel + ZOOM_STEP);
   }
-);
 
-zoomOutBtn?.addEventListener(
-  'click',
-  event => {
-    event.stopPropagation();
-
-    setArtworkZoom(
-      zoomLevel - ZOOM_STEP
-    );
+  if (event.key === "-" || event.key === "_") {
+    setArtworkZoom(zoomLevel - ZOOM_STEP);
   }
-);
 
-zoomResetBtn?.addEventListener(
-  'click',
-  event => {
-    event.stopPropagation();
-
+  if (event.key === "0") {
     resetArtworkZoom();
   }
-);
+});
+
+zoomInBtn?.addEventListener("click", (event) => {
+  event.stopPropagation();
+
+  setArtworkZoom(zoomLevel + ZOOM_STEP);
+});
+
+zoomOutBtn?.addEventListener("click", (event) => {
+  event.stopPropagation();
+
+  setArtworkZoom(zoomLevel - ZOOM_STEP);
+});
+
+zoomResetBtn?.addEventListener("click", (event) => {
+  event.stopPropagation();
+
+  resetArtworkZoom();
+});
 
 lightboxViewport?.addEventListener(
-  'wheel',
-  event => {
-    if (
-      !lightbox.classList.contains(
-        'active'
-      )
-    ) {
+  "wheel",
+  (event) => {
+    if (!lightbox.classList.contains("active")) {
       return;
     }
 
     event.preventDefault();
 
-    const direction =
-      event.deltaY < 0 ? 1 : -1;
+    const direction = event.deltaY < 0 ? 1 : -1;
 
-    setArtworkZoom(
-      zoomLevel +
-        direction * 0.25
-    );
+    setArtworkZoom(zoomLevel + direction * 0.25);
   },
-  { passive: false }
+  { passive: false },
 );
 
-image.addEventListener(
-  'pointerdown',
-  event => {
-    if (zoomLevel <= 1) return;
+image.addEventListener("pointerdown", (event) => {
+  if (zoomLevel <= 1) return;
 
-    isDraggingArtwork = true;
-    dragMoved = false;
+  isDraggingArtwork = true;
+  dragMoved = false;
 
-    dragStartX =
-      event.clientX;
+  dragStartX = event.clientX;
 
-    dragStartY =
-      event.clientY;
+  dragStartY = event.clientY;
 
-    dragOriginX =
-      panX;
+  dragOriginX = panX;
 
-    dragOriginY =
-      panY;
+  dragOriginY = panY;
 
-    image.classList.add(
-      'is-dragging'
-    );
+  image.classList.add("is-dragging");
 
-    image.setPointerCapture?.(
-      event.pointerId
-    );
+  image.setPointerCapture?.(event.pointerId);
+});
+
+image.addEventListener("pointermove", (event) => {
+  if (!isDraggingArtwork) {
+    return;
   }
-);
 
-image.addEventListener(
-  'pointermove',
-  event => {
-    if (!isDraggingArtwork) {
-      return;
-    }
+  const dx = event.clientX - dragStartX;
 
-    const dx =
-      event.clientX -
-      dragStartX;
+  const dy = event.clientY - dragStartY;
 
-    const dy =
-      event.clientY -
-      dragStartY;
-
-    if (
-      Math.abs(dx) > 3 ||
-      Math.abs(dy) > 3
-    ) {
-      dragMoved = true;
-    }
-
-    panX =
-      dragOriginX + dx;
-
-    panY =
-      dragOriginY + dy;
-
-    renderArtworkZoom();
+  if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
+    dragMoved = true;
   }
-);
+
+  panX = dragOriginX + dx;
+
+  panY = dragOriginY + dy;
+
+  renderArtworkZoom();
+});
 
 function endArtworkDrag(event) {
   if (!isDraggingArtwork) {
@@ -548,380 +529,211 @@ function endArtworkDrag(event) {
 
   isDraggingArtwork = false;
 
-  image.classList.remove(
-    'is-dragging'
-  );
+  image.classList.remove("is-dragging");
 
   try {
-    image.releasePointerCapture?.(
-      event.pointerId
-    );
+    image.releasePointerCapture?.(event.pointerId);
   } catch (_) {}
 }
 
-image.addEventListener(
-  'pointerup',
-  endArtworkDrag
-);
+image.addEventListener("pointerup", endArtworkDrag);
 
-image.addEventListener(
-  'pointercancel',
-  endArtworkDrag
-);
+image.addEventListener("pointercancel", endArtworkDrag);
 
-image.addEventListener(
-  'click',
-  event => {
-    event.stopPropagation();
+image.addEventListener("click", (event) => {
+  event.stopPropagation();
 
-    if (dragMoved) {
-      dragMoved = false;
-      return;
-    }
-
-    if (zoomLevel === 1) {
-      setArtworkZoom(2);
-    } else {
-      resetArtworkZoom();
-    }
+  if (dragMoved) {
+    dragMoved = false;
+    return;
   }
-);
 
-image.addEventListener(
-  'dblclick',
-  event => {
-    event.preventDefault();
-    event.stopPropagation();
-
-    setArtworkZoom(
-      zoomLevel >= 3
-        ? 1
-        : Math.min(
-            MAX_ZOOM,
-            zoomLevel + 1
-          )
-    );
+  if (zoomLevel === 1) {
+    setArtworkZoom(2);
+  } else {
+    resetArtworkZoom();
   }
-);
+});
 
-window.addEventListener(
-  'resize',
-  () => {
-    if (
-      lightbox.classList.contains(
-        'active'
-      )
-    ) {
-      renderArtworkZoom();
-    }
+image.addEventListener("dblclick", (event) => {
+  event.preventDefault();
+  event.stopPropagation();
+
+  setArtworkZoom(zoomLevel >= 3 ? 1 : Math.min(MAX_ZOOM, zoomLevel + 1));
+});
+
+window.addEventListener("resize", () => {
+  if (lightbox.classList.contains("active")) {
+    renderArtworkZoom();
   }
-);
+});
 
-const reducedMotion =
-  window.matchMedia(
-    '(prefers-reduced-motion: reduce)'
-  ).matches;
+const reducedMotion = window.matchMedia(
+  "(prefers-reduced-motion: reduce)",
+).matches;
 
-const finePointer =
-  window.matchMedia(
-    '(pointer:fine)'
-  ).matches;
+const finePointer = window.matchMedia("(pointer:fine)").matches;
 
-const parallaxItems = [
-  ...document.querySelectorAll(
-    '.parallax'
-  )
-];
+const parallaxItems = [...document.querySelectorAll(".parallax")];
 
-const cursorGlow =
-  document.querySelector(
-    '.cursor-glow'
-  );
+const cursorGlow = document.querySelector(".cursor-glow");
 
-const cursorGlowTwo =
-  document.querySelector(
-    '.cursor-glow.glow-two'
-  );
+const cursorGlowTwo = document.querySelector(".cursor-glow.glow-two");
 
-const cursorRing =
-  document.querySelector(
-    '.cursor-ring'
-  );
+const cursorRing = document.querySelector(".cursor-ring");
 
 if (!reducedMotion && finePointer) {
-  let targetX =
-    window.innerWidth / 2;
+  let targetX = window.innerWidth / 2;
 
-  let targetY =
-    window.innerHeight / 2;
+  let targetY = window.innerHeight / 2;
 
-  let currentX =
-    targetX;
+  let currentX = targetX;
 
-  let currentY =
-    targetY;
+  let currentY = targetY;
 
   const animateScene = () => {
-    currentX +=
-      (targetX - currentX) *
-      0.12;
+    currentX += (targetX - currentX) * 0.12;
 
-    currentY +=
-      (targetY - currentY) *
-      0.12;
+    currentY += (targetY - currentY) * 0.12;
 
-    const nx =
-      (currentX /
-        window.innerWidth -
-        0.5) *
-      2;
+    const nx = (currentX / window.innerWidth - 0.5) * 2;
 
-    const ny =
-      (currentY /
-        window.innerHeight -
-        0.5) *
-      2;
+    const ny = (currentY / window.innerHeight - 0.5) * 2;
 
-    parallaxItems.forEach(
-      item => {
-        const depth =
-          Number(
-            item.dataset.depth ||
-              10
-          ) * 2.6;
+    parallaxItems.forEach((item) => {
+      const depth = Number(item.dataset.depth || 10) * 2.6;
 
-        const baseRotate =
-          Number(
-            item.dataset.rotate ||
-              0
-          );
+      const baseRotate = Number(item.dataset.rotate || 0);
 
-        const extraRotate =
-          nx * 6 +
-          ny * 4;
+      const extraRotate = nx * 6 + ny * 4;
 
-        const scale =
-          1 +
-          Math.abs(
-            nx * 0.035
-          ) +
-          Math.abs(
-            ny * 0.035
-          );
+      const scale = 1 + Math.abs(nx * 0.035) + Math.abs(ny * 0.035);
 
-        item.style.transform =
-          `translate3d(${nx * depth}px, ${ny * depth}px, 0) rotate(${baseRotate + extraRotate}deg) scale(${scale})`;
-      }
-    );
+      item.style.transform = `translate3d(${nx * depth}px, ${ny * depth}px, 0) rotate(${baseRotate + extraRotate}deg) scale(${scale})`;
+    });
 
     if (cursorGlow) {
-      cursorGlow.style.left =
-        `${currentX}px`;
+      cursorGlow.style.left = `${currentX}px`;
 
-      cursorGlow.style.top =
-        `${currentY}px`;
+      cursorGlow.style.top = `${currentY}px`;
     }
 
     if (cursorGlowTwo) {
-      cursorGlowTwo.style.left =
-        `${currentX}px`;
+      cursorGlowTwo.style.left = `${currentX}px`;
 
-      cursorGlowTwo.style.top =
-        `${currentY}px`;
+      cursorGlowTwo.style.top = `${currentY}px`;
     }
 
     if (cursorRing) {
-      cursorRing.style.left =
-        `${currentX}px`;
+      cursorRing.style.left = `${currentX}px`;
 
-      cursorRing.style.top =
-        `${currentY}px`;
+      cursorRing.style.top = `${currentY}px`;
     }
 
-    requestAnimationFrame(
-      animateScene
-    );
+    requestAnimationFrame(animateScene);
   };
 
   window.addEventListener(
-    'mousemove',
-    event => {
-      targetX =
-        event.clientX;
+    "mousemove",
+    (event) => {
+      targetX = event.clientX;
 
-      targetY =
-        event.clientY;
+      targetY = event.clientY;
     },
-    { passive: true }
+    { passive: true },
   );
 
-  window.addEventListener(
-    'mouseleave',
-    () => {
-      targetX =
-        window.innerWidth / 2;
+  window.addEventListener("mouseleave", () => {
+    targetX = window.innerWidth / 2;
 
-      targetY =
-        window.innerHeight / 2;
-    }
-  );
+    targetY = window.innerHeight / 2;
+  });
 
-  requestAnimationFrame(
-    animateScene
-  );
+  requestAnimationFrame(animateScene);
 
-  if (
-    collectionSection &&
-    gallerySpotlight
-  ) {
+  if (collectionSection && gallerySpotlight) {
     collectionSection.addEventListener(
-      'mousemove',
-      event => {
-        const rect =
-          collectionSection.getBoundingClientRect();
+      "mousemove",
+      (event) => {
+        const rect = collectionSection.getBoundingClientRect();
 
-        gallerySpotlight.style.left =
-          `${event.clientX - rect.left}px`;
+        gallerySpotlight.style.left = `${event.clientX - rect.left}px`;
 
-        gallerySpotlight.style.top =
-          `${event.clientY - rect.top}px`;
+        gallerySpotlight.style.top = `${event.clientY - rect.top}px`;
       },
-      { passive: true }
+      { passive: true },
     );
   }
 
-  cards.forEach(card => {
-    const cardImage =
-      card.querySelector(
-        '.art-stage img'
-      );
+  cards.forEach((card) => {
+    const cardImage = card.querySelector(".art-stage img");
 
-    const cardMeta =
-      card.querySelector(
-        '.art-meta'
-      );
+    const cardMeta = card.querySelector(".art-meta");
 
-    card.addEventListener(
-      'mousemove',
-      event => {
-        const rect =
-          card.getBoundingClientRect();
+    card.addEventListener("mousemove", (event) => {
+      const rect = card.getBoundingClientRect();
 
-        const px =
-          (event.clientX -
-            rect.left) /
-          rect.width;
+      const px = (event.clientX - rect.left) / rect.width;
 
-        const py =
-          (event.clientY -
-            rect.top) /
-          rect.height;
+      const py = (event.clientY - rect.top) / rect.height;
 
-        const dx =
-          px - 0.5;
+      const dx = px - 0.5;
 
-        const dy =
-          py - 0.5;
+      const dy = py - 0.5;
 
-        card.style.transform =
-          `perspective(1400px) rotateX(${-dy * 13}deg) rotateY(${dx * 15}deg) translateY(-12px) scale(1.025)`;
+      card.style.transform = `perspective(1400px) rotateX(${-dy * 13}deg) rotateY(${dx * 15}deg) translateY(-12px) scale(1.025)`;
 
-        card.style.setProperty(
-          '--shine-x',
-          `${px * 100}%`
-        );
+      card.style.setProperty("--shine-x", `${px * 100}%`);
 
-        card.style.setProperty(
-          '--shine-y',
-          `${py * 100}%`
-        );
+      card.style.setProperty("--shine-y", `${py * 100}%`);
 
-        if (cardImage) {
-          cardImage.style.transform =
-            `translate3d(${dx * -24}px, ${dy * -20}px, 26px) scale(1.07)`;
-        }
-
-        if (cardMeta) {
-          cardMeta.style.transform =
-            `translate3d(${dx * 10}px, ${dy * 8}px, 24px)`;
-        }
+      if (cardImage) {
+        cardImage.style.transform = `translate3d(${dx * -24}px, ${dy * -20}px, 26px) scale(1.07)`;
       }
-    );
 
-    card.addEventListener(
-      'mouseleave',
-      () => {
-        card.style.transform =
-          '';
-
-        card.style.setProperty(
-          '--shine-x',
-          '50%'
-        );
-
-        card.style.setProperty(
-          '--shine-y',
-          '30%'
-        );
-
-        if (cardImage) {
-          cardImage.style.transform =
-            '';
-        }
-
-        if (cardMeta) {
-          cardMeta.style.transform =
-            '';
-        }
+      if (cardMeta) {
+        cardMeta.style.transform = `translate3d(${dx * 10}px, ${dy * 8}px, 24px)`;
       }
-    );
+    });
+
+    card.addEventListener("mouseleave", () => {
+      card.style.transform = "";
+
+      card.style.setProperty("--shine-x", "50%");
+
+      card.style.setProperty("--shine-y", "30%");
+
+      if (cardImage) {
+        cardImage.style.transform = "";
+      }
+
+      if (cardMeta) {
+        cardMeta.style.transform = "";
+      }
+    });
   });
 }
 
-const revealItems =
-  document.querySelectorAll(
-    '.reveal'
+const revealItems = document.querySelectorAll(".reveal");
+
+if ("IntersectionObserver" in window && !reducedMotion) {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.12,
+      rootMargin: "0px 0px -30px 0px",
+    },
   );
 
-if (
-  'IntersectionObserver' in window &&
-  !reducedMotion
-) {
-  const observer =
-    new IntersectionObserver(
-      entries => {
-        entries.forEach(
-          entry => {
-            if (
-              entry.isIntersecting
-            ) {
-              entry.target.classList.add(
-                'visible'
-              );
-
-              observer.unobserve(
-                entry.target
-              );
-            }
-          }
-        );
-      },
-      {
-        threshold: 0.12,
-        rootMargin:
-          '0px 0px -30px 0px'
-      }
-    );
-
-  revealItems.forEach(
-    element =>
-      observer.observe(element)
-  );
+  revealItems.forEach((element) => observer.observe(element));
 } else {
-  revealItems.forEach(
-    element =>
-      element.classList.add(
-        'visible'
-      )
-  );
+  revealItems.forEach((element) => element.classList.add("visible"));
 }
