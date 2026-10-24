@@ -51,9 +51,11 @@ function updateMorphingShopLogo() {
     ? window.innerWidth - 46
     : window.innerWidth - 58;
 
-  // Start inside the header, then travel diagonally down below it.
+  // Start inside the header, then settle clearly lower in the viewport.
   const startTop = isMobile ? 14 : 20;
-  const endTop = isMobile ? 118 : 96;
+  const endTop = isMobile
+    ? Math.max(120, Math.min(window.innerHeight * 0.18, 150))
+    : Math.max(150, Math.min(window.innerHeight * 0.2, 190));
 
   const startSize = isMobile ? 38 : 42;
   const endSize = isMobile ? 32 : 36;
