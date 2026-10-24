@@ -35,7 +35,7 @@ main,
 }
 
 main {
-  padding-top: 82px;
+  padding-top: 0;
 }
 img {
   display: block;
@@ -298,9 +298,7 @@ button {
 
 /* Header */
 .site-header {
-  position: fixed;
-  top: 0;
-  left: 0;
+  position: relative;
   width: 100%;
   margin: 0;
   z-index: 100;
@@ -1356,7 +1354,7 @@ footer {
   }
 
   main {
-    padding-top: 104px;
+    padding-top: 0;
   }
 
   .section {
