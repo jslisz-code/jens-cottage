@@ -23,20 +23,24 @@ const zoomResetBtn = document.getElementById("zoomReset");
 
 const morphingShopLogo = document.getElementById("morphingShopLogo");
 
-function updateMorphingShopLogo() {
+let logoFrameRequested = false;
+
+function renderMorphingShopLogo() {
+  logoFrameRequested = false;
+
   if (!morphingShopLogo) return;
 
   const isMobile = window.innerWidth <= 620;
 
-  // Give the movement enough scroll distance to feel deliberate and visible.
-  const travelDistance = isMobile ? 340 : 460;
+  // The logo finishes its travel after a deliberate amount of scrolling.
+  const travelDistance = isMobile ? 520 : 680;
 
   const rawProgress = Math.min(
     Math.max(window.scrollY / travelDistance, 0),
     1
   );
 
-  // Smoothstep easing keeps the movement soft at both ends.
+  // Smoothstep easing gives the movement a gallery-like glide.
   const progress =
     rawProgress * rawProgress * (3 - 2 * rawProgress);
 
@@ -48,34 +52,39 @@ function updateMorphingShopLogo() {
       );
 
   const endLeft = isMobile
-    ? window.innerWidth - 46
-    : window.innerWidth - 58;
+    ? window.innerWidth - 56
+    : window.innerWidth - 72;
 
-  // Start aligned with the header, then settle clearly below it.
-  const startTop = isMobile ? 14 : 20;
-  const endTop = isMobile
-    ? Math.max(150, Math.min(window.innerHeight * 0.24, 190))
-    : Math.max(190, Math.min(window.innerHeight * 0.26, 240));
+  // This is intentionally much lower so the logo remains obvious while scrolling.
+  const endDown = isMobile
+    ? Math.max(180, window.innerHeight * 0.28)
+    : Math.max(220, window.innerHeight * 0.32);
 
-  const startSize = isMobile ? 38 : 42;
-  const endSize = isMobile ? 32 : 36;
-
-  const left =
-    startLeft +
+  const x =
     (endLeft - startLeft) * progress;
 
-  const top =
-    startTop +
-    (endTop - startTop) * progress;
+  const y =
+    endDown * progress;
 
-  const size =
-    startSize +
-    (endSize - startSize) * progress;
+  const endScale = isMobile ? 0.82 : 0.86;
 
-  morphingShopLogo.style.left = `${left}px`;
-  morphingShopLogo.style.top = `${top}px`;
-  morphingShopLogo.style.width = `${size}px`;
-  morphingShopLogo.style.height = `${size}px`;
+  const scale =
+    1 + (endScale - 1) * progress;
+
+  morphingShopLogo.style.setProperty(
+    "--logo-x",
+    `${x}px`
+  );
+
+  morphingShopLogo.style.setProperty(
+    "--logo-y",
+    `${y}px`
+  );
+
+  morphingShopLogo.style.setProperty(
+    "--logo-scale",
+    scale.toFixed(4)
+  );
 
   document.body.classList.toggle(
     "logo-docked",
@@ -83,9 +92,28 @@ function updateMorphingShopLogo() {
   );
 }
 
-window.addEventListener("scroll", updateMorphingShopLogo, { passive: true });
-window.addEventListener("resize", updateMorphingShopLogo);
-updateMorphingShopLogo();
+function requestMorphingShopLogoUpdate() {
+  if (logoFrameRequested) return;
+
+  logoFrameRequested = true;
+
+  window.requestAnimationFrame(
+    renderMorphingShopLogo
+  );
+}
+
+window.addEventListener(
+  "scroll",
+  requestMorphingShopLogoUpdate,
+  { passive: true }
+);
+
+window.addEventListener(
+  "resize",
+  requestMorphingShopLogoUpdate
+);
+
+renderMorphingShopLogo();
 
 const CONTACT_EMAIL = "maisonregardbleu@gmail.com";
 const CC_EMAIL = "jslisz.drip@outlook.com";
