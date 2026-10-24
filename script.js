@@ -57,8 +57,8 @@ function renderMorphingShopLogo() {
 
   // This is intentionally much lower so the logo remains obvious while scrolling.
   const endDown = isMobile
-    ? Math.max(145, window.innerHeight * 0.22)
-    : Math.max(170, window.innerHeight * 0.24);
+    ? Math.max(88, window.innerHeight * 0.12)
+    : Math.max(82, window.innerHeight * 0.11);
 
   const x =
     (endLeft - startLeft) * progress;
