@@ -400,7 +400,7 @@ button {
 }
 
 body.logo-docked .morphing-shop-logo {
-  top: 96px;
+  top: 14px;
   left: calc(100vw - 58px);
   width: 36px;
   height: 36px;
@@ -1347,7 +1347,7 @@ footer {
   }
 
   body.logo-docked .morphing-shop-logo {
-    top: 116px;
+    top: 12px;
     left: calc(100vw - 46px);
     width: 32px;
     height: 32px;
