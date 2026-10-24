@@ -156,8 +156,12 @@ function renderPrintShop(workTitle) {
 
   printPrice.textContent = product.sizes[0]?.price || '';
 
+  const firstSize = product.sizes[0];
+
   etsyBuyButton.href = PRINTIFY_STORE_URL;
-  etsyBuyButton.textContent = 'Shop Prints';
+  etsyBuyButton.textContent = firstSize
+    ? `Buy ${firstSize.label} on Printify`
+    : 'Shop Prints';
   etsyBuyButton.classList.remove('is-disabled');
   etsyBuyButton.setAttribute('aria-disabled', 'false');
   etsyBuyButton.target = '_blank';
@@ -172,6 +176,13 @@ printSizeSelect?.addEventListener('change', () => {
   const selected = product.sizes[Number(printSizeSelect.value)];
   if (selected) {
     printPrice.textContent = selected.price;
+
+    etsyBuyButton.href = PRINTIFY_STORE_URL;
+    etsyBuyButton.textContent = `Buy ${selected.label} on Printify`;
+    etsyBuyButton.classList.remove('is-disabled');
+    etsyBuyButton.setAttribute('aria-disabled', 'false');
+    etsyBuyButton.target = '_blank';
+    etsyBuyButton.rel = 'noopener noreferrer';
   }
 });
 
