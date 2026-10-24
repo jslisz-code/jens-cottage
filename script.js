@@ -21,6 +21,15 @@ const zoomInBtn = document.getElementById("zoomIn");
 const zoomOutBtn = document.getElementById("zoomOut");
 const zoomResetBtn = document.getElementById("zoomReset");
 
+const morphingShopLogo = document.getElementById("morphingShopLogo");
+
+function updateMorphingShopLogo() {
+  document.body.classList.toggle("logo-docked", window.scrollY > 110);
+}
+
+window.addEventListener("scroll", updateMorphingShopLogo, { passive: true });
+updateMorphingShopLogo();
+
 const CONTACT_EMAIL = "maisonregardbleu@gmail.com";
 const CC_EMAIL = "jslisz.drip@outlook.com";
 
