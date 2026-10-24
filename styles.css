@@ -27,12 +27,15 @@ body {
   overflow-x: hidden;
 }
 
-.site-header,
 main,
 .site-footer {
   width: calc(100% - (var(--page-frame-gutter) * 2));
   margin-left: var(--page-frame-gutter);
   margin-right: var(--page-frame-gutter);
+}
+
+main {
+  padding-top: 82px;
 }
 img {
   display: block;
@@ -295,21 +298,28 @@ button {
 
 /* Header */
 .site-header {
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 30;
-  background: rgba(40, 26, 21, 0.9);
+  left: 0;
+  width: 100%;
+  margin: 0;
+  z-index: 100;
+  background: rgba(40, 26, 21, 0.96);
   backdrop-filter: blur(18px);
-  border-bottom: 1px solid rgba(246, 213, 157, 0.16);
+  border-bottom: 1px solid rgba(246, 213, 157, 0.18);
   color: #f9ead6;
+  box-shadow: 0 8px 28px rgba(24, 14, 10, 0.14);
 }
+
 .nav-wrap {
   min-height: 82px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 28px;
+  padding-right: 52px;
 }
+
 .brand {
   display: flex;
   align-items: center;
@@ -319,34 +329,29 @@ button {
     serif;
   letter-spacing: 0.01em;
 }
-.monogram {
-  width: 42px;
-  height: 42px;
-  display: grid;
-  place-items: center;
-  border: 1px solid rgba(236, 195, 132, 0.44);
-  border-radius: 50%;
-  overflow: hidden;
-  background: #f4ead9;
+
+.brand-wordmark {
+  margin-left: 54px;
+  transition: margin-left 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.logo-monogram img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform: scale(1.08);
-}
-nav {
+
+.main-nav {
   display: flex;
-  gap: 32px;
+  align-items: center;
+  gap: 28px;
 }
-nav a {
-  font-size: 13px;
+
+.main-nav a {
+  font-size: 11px;
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.13em;
   color: rgba(249, 234, 214, 0.72);
   position: relative;
+  transition: color 0.25s ease;
 }
-nav a::after {
+
+.main-nav a::after {
   content: "";
   position: absolute;
   left: 0;
@@ -356,54 +361,65 @@ nav a::after {
   background: #d8aa69;
   transition: width 0.3s ease;
 }
-nav a:hover {
+
+.main-nav a:hover {
   color: #fff4e3;
 }
-nav a:hover::after {
+
+.main-nav a:hover::after {
   width: 100%;
 }
 
-.floating-shop-button {
+.morphing-shop-logo {
   position: fixed;
-  top: 96px;
-  right: 10px;
-  z-index: 120;
-
-  width: 44px;
-  height: 44px;
-
+  top: 20px;
+  left: max(4vw, calc((100vw - 1220px) / 2));
+  z-index: 130;
+  width: 42px;
+  height: 42px;
   display: grid;
   place-items: center;
-
   border-radius: 50%;
   overflow: hidden;
-
-  border: 1px solid rgba(231, 189, 128, 0.78);
   background: #f4ead9;
-
-  box-shadow:
-    0 10px 26px rgba(31, 18, 12, 0.22),
-    0 0 0 5px rgba(244, 234, 217, 0.14);
-
+  border: 1px solid rgba(231, 189, 128, 0.52);
+  box-shadow: 0 6px 18px rgba(24, 14, 10, 0.14);
   transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    border-color 0.2s ease;
+    left 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    top 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    width 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    height 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
 }
 
-.floating-shop-button img {
+.morphing-shop-logo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transform: scale(1.08);
 }
 
-.floating-shop-button:hover {
-  transform: translateY(-1px) scale(1.04);
-  border-color: #e7bd80;
+body.logo-docked .morphing-shop-logo {
+  top: 23px;
+  left: calc(100vw - 52px);
+  width: 34px;
+  height: 34px;
+  border-color: rgba(231, 189, 128, 0.82);
   box-shadow:
-    0 14px 30px rgba(31, 18, 12, 0.34),
-    0 0 0 6px rgba(244, 234, 217, 0.24);
+    0 8px 22px rgba(24, 14, 10, 0.24),
+    0 0 0 4px rgba(244, 234, 217, 0.1);
+}
+
+body.logo-docked .brand-wordmark {
+  margin-left: 0;
+}
+
+.morphing-shop-logo:hover {
+  transform: scale(1.07);
+  border-color: #e7bd80;
+  box-shadow: 0 10px 26px rgba(24, 14, 10, 0.28);
 }
 
 /* Hero */
@@ -1241,8 +1257,13 @@ footer {
 }
 
 @media (max-width: 950px) {
-  nav {
-    display: none;
+  .main-nav {
+    gap: 14px;
+  }
+
+  .main-nav a {
+    font-size: 9px;
+    letter-spacing: 0.08em;
   }
   .intro-grid,
   .about-grid {
@@ -1279,6 +1300,65 @@ footer {
 }
 
 @media (max-width: 620px) {
+  :root {
+    --page-frame-gutter: 12px;
+  }
+
+  .site-header {
+    min-height: 104px;
+  }
+
+  .nav-wrap {
+    min-height: 104px;
+    padding: 10px 0 8px;
+    padding-right: 0;
+    flex-wrap: wrap;
+    align-content: center;
+    row-gap: 8px;
+  }
+
+  .brand {
+    font-size: 20px;
+  }
+
+  .brand-wordmark {
+    margin-left: 46px;
+  }
+
+  body.logo-docked .brand-wordmark {
+    margin-left: 0;
+  }
+
+  .main-nav {
+    width: 100%;
+    order: 3;
+    justify-content: center;
+    gap: 14px;
+  }
+
+  .main-nav a {
+    font-size: 8px;
+    letter-spacing: 0.07em;
+  }
+
+  .morphing-shop-logo {
+    top: 14px;
+    left: 12px;
+    width: 38px;
+    height: 38px;
+  }
+
+  body.logo-docked .morphing-shop-logo {
+    top: 14px;
+    left: calc(100vw - 46px);
+    width: 32px;
+    height: 32px;
+  }
+
+  main {
+    padding-top: 104px;
+  }
+
   .section {
     padding: 82px 0;
   }
@@ -1369,6 +1449,8 @@ footer {
   html {
     scroll-behavior: auto;
   }
+  .morphing-shop-logo,
+  .brand-wordmark,
   .parallax,
   .art-card,
   .art-stage img,
