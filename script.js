@@ -1,116 +1,125 @@
-const cards = document.querySelectorAll(".art-card");
-const lightbox = document.getElementById("lightbox");
-const image = document.getElementById("lightboxImage");
-const title = document.getElementById("lightboxTitle");
-const medium = document.getElementById("lightboxMedium");
-const size = document.getElementById("lightboxSize");
-const frame = document.getElementById("lightboxFrame");
-const print = document.getElementById("lightboxPrint");
-const status = document.getElementById("lightboxStatus");
-const inquiry = document.getElementById("lightboxInquiry");
-const printShop = document.getElementById("printShop");
-const printSizeSelect = document.getElementById("printSizeSelect");
-const printPrice = document.getElementById("printPrice");
-const etsyBuyButton = document.getElementById("etsyBuyButton");
-const closeBtn = document.getElementById("closeLightbox");
-const backdrop = lightbox.querySelector(".lightbox-backdrop");
-const gallerySpotlight = document.querySelector(".gallery-spotlight");
-const collectionSection = document.querySelector(".collection");
-const lightboxViewport = document.getElementById("lightboxViewport");
-const zoomInBtn = document.getElementById("zoomIn");
-const zoomOutBtn = document.getElementById("zoomOut");
-const zoomResetBtn = document.getElementById("zoomReset");
+const cards = document.querySelectorAll('.art-card');
+const lightbox = document.getElementById('lightbox');
+const image = document.getElementById('lightboxImage');
+const title = document.getElementById('lightboxTitle');
+const medium = document.getElementById('lightboxMedium');
+const size = document.getElementById('lightboxSize');
+const frame = document.getElementById('lightboxFrame');
+const print = document.getElementById('lightboxPrint');
+const status = document.getElementById('lightboxStatus');
+const inquiry = document.getElementById('lightboxInquiry');
+const printShop = document.getElementById('printShop');
+const printSizeSelect = document.getElementById('printSizeSelect');
+const printPrice = document.getElementById('printPrice');
+const etsyBuyButton = document.getElementById('etsyBuyButton');
+const closeBtn = document.getElementById('closeLightbox');
+const backdrop = lightbox.querySelector('.lightbox-backdrop');
+const gallerySpotlight = document.querySelector('.gallery-spotlight');
+const collectionSection = document.querySelector('.collection');
+const lightboxViewport = document.getElementById('lightboxViewport');
+const zoomInBtn = document.getElementById('zoomIn');
+const zoomOutBtn = document.getElementById('zoomOut');
+const zoomResetBtn = document.getElementById('zoomReset');
 
-const CONTACT_EMAIL = "maisonregardbleu@gmail.com";
-const CC_EMAIL = "jslisz.drip@outlook.com";
+const CONTACT_EMAIL = 'maisonregardbleu@gmail.com';
+const CC_EMAIL = 'jslisz.drip@outlook.com';
 
 const PRINT_PRODUCTS = {
-  "Subtle Confusion": {
-    etsyUrl: "",
+  'Subtle Confusion': {
+    etsyUrl: '',
     sizes: [
-      { label: '11\" × 22\"', price: "$24.99" },
-      { label: '15\" × 30\"', price: "$44.99" },
-      { label: '20\" × 40\"', price: "$69.99" },
-    ],
+      { label: '11" × 22"', price: '$24.99' },
+      { label: '15" × 30"', price: '$44.99' },
+      { label: '20" × 40"', price: '$69.99' }
+    ]
   },
 
-  "Pieces of Me": {
-    etsyUrl: "",
+  'Pieces of Me': {
+    etsyUrl: '',
     sizes: [
-      { label: '11\" × 14\"', price: "$24.99" },
-      { label: '22\" × 28\"', price: "$44.99" },
-    ],
+      { label: '11" × 14"', price: '$24.99' },
+      { label: '22" × 28"', price: '$44.99' }
+    ]
   },
 
-  "Title pending · 16 × 20": {
-    etsyUrl: "",
+  'Title pending · 16 × 20': {
+    etsyUrl: '',
     sizes: [
-      { label: '8\" × 10\"', price: "$19.99" },
-      { label: '16\" × 20\"', price: "$29.99" },
-      { label: '24\" × 30\"', price: "$54.99" },
-    ],
+      { label: '8" × 10"', price: '$19.99' },
+      { label: '16" × 20"', price: '$29.99' },
+      { label: '24" × 30"', price: '$54.99' }
+    ]
   },
 
-  "Self Portrait": {
-    etsyUrl: "",
+  'Self Portrait': {
+    etsyUrl: '',
     sizes: [
-      { label: '11\" × 22\"', price: "$24.99" },
-      { label: '15\" × 30\"', price: "$44.99" },
-      { label: '20\" × 40\"', price: "$69.99" },
-    ],
+      { label: '11" × 22"', price: '$24.99' },
+      { label: '15" × 30"', price: '$44.99' },
+      { label: '20" × 40"', price: '$69.99' }
+    ]
   },
 
-  "Modern Muse": {
-    etsyUrl: "",
+  'Modern Muse': {
+    etsyUrl: '',
     sizes: [
-      { label: '8\" × 12\"', price: "$19.99" },
-      { label: '12\" × 18\"', price: "$24.99" },
-      { label: '16\" × 24\"', price: "$39.99" },
-      { label: '24\" × 36\"', price: "$64.99" },
-    ],
+      { label: '8" × 12"', price: '$19.99' },
+      { label: '12" × 18"', price: '$24.99' },
+      { label: '16" × 24"', price: '$39.99' },
+      { label: '24" × 36"', price: '$64.99' }
+    ]
   },
 
-  "Bleu Tunes in My Cello Head": {
-    etsyUrl: "",
+  'Bleu Tunes in My Cello Head': {
+    etsyUrl: '',
     sizes: [
-      { label: '17\" × 20\"', price: "$34.99" },
-      { label: '20\" × 24\"', price: "$44.99" },
-    ],
+      { label: '17" × 20"', price: '$34.99' },
+      { label: '20" × 24"', price: '$44.99' }
+    ]
   },
 
-  "Title pending · 18 × 24": {
-    etsyUrl: "",
+  'Title pending · 18 × 24': {
+    etsyUrl: '',
     sizes: [
-      { label: '12\" × 16\"', price: "$24.99" },
-      { label: '18\" × 24\"', price: "$29.99" },
-      { label: '24\" × 32\"', price: "$49.99" },
-      { label: '30\" × 40\"', price: "$69.99" },
-    ],
+      { label: '12" × 16"', price: '$24.99' },
+      { label: '18" × 24"', price: '$29.99' },
+      { label: '24" × 32"', price: '$49.99' },
+      { label: '30" × 40"', price: '$69.99' }
+    ]
   },
 
-  "Arc et Forme": {
-    etsyUrl: "",
+  'Arc et Forme': {
+    etsyUrl: '',
     sizes: [
-      { label: '14\" × 11\"', price: "$24.99" },
-      { label: '28\" × 22\"', price: "$54.99" },
-    ],
+      { label: '14" × 11"', price: '$24.99' },
+      { label: '28" × 22"', price: '$54.99' }
+    ]
   },
 
-  "Le Regard": {
-    etsyUrl: "",
+  'Le Regard': {
+    etsyUrl: '',
     sizes: [
-      { label: '10\" × 17\"', price: "$24.99" },
-      { label: '14\" × 23\"', price: "$39.99" },
-    ],
+      { label: '10" × 17"', price: '$24.99' },
+      { label: '14" × 23"', price: '$39.99' }
+    ]
   },
 
-  "Title pending · 36 × 42": {
-    etsyUrl: "",
+  'Title pending · 36 × 42': {
+    etsyUrl: '',
     sizes: [
-      { label: '17\" × 20\"', price: "$34.99" },
-      { label: '20\" × 24\"', price: "$44.99" },
-    ],
+      { label: '17" × 20"', price: '$34.99' },
+      { label: '20" × 24"', price: '$44.99' }
+    ]
   },
+
+  'After the Beach': {
+    etsyUrl: '',
+    sizes: [
+      { label: '18" × 24"', price: '$24.99' },
+      { label: '22" × 28"', price: '$44.99' },
+      { label: '27" × 40"', price: '$64.99' }
+    ]
+  }
 };
 
 function renderPrintShop(workTitle) {
@@ -122,10 +131,10 @@ function renderPrintShop(workTitle) {
   }
 
   printShop.hidden = false;
-  printSizeSelect.innerHTML = "";
+  printSizeSelect.innerHTML = '';
 
   product.sizes.forEach((option, index) => {
-    const choice = document.createElement("option");
+    const choice = document.createElement('option');
     choice.value = index;
     choice.textContent = `${option.label} — ${option.price}`;
     printSizeSelect.appendChild(choice);
@@ -135,33 +144,38 @@ function renderPrintShop(workTitle) {
 
   if (product.etsyUrl) {
     etsyBuyButton.href = product.etsyUrl;
-    etsyBuyButton.textContent = "Buy on Etsy";
-    etsyBuyButton.classList.remove("is-disabled");
-    etsyBuyButton.setAttribute("aria-disabled", "false");
-    etsyBuyButton.target = "_blank";
-    etsyBuyButton.rel = "noopener noreferrer";
+    etsyBuyButton.textContent = 'Buy on Etsy';
+    etsyBuyButton.classList.remove('is-disabled');
+    etsyBuyButton.setAttribute('aria-disabled', 'false');
+    etsyBuyButton.target = '_blank';
+    etsyBuyButton.rel = 'noopener noreferrer';
   } else {
-    etsyBuyButton.href = "#";
-    etsyBuyButton.textContent = "Available on Etsy Soon";
-    etsyBuyButton.classList.add("is-disabled");
-    etsyBuyButton.setAttribute("aria-disabled", "true");
-    etsyBuyButton.removeAttribute("target");
-    etsyBuyButton.removeAttribute("rel");
+    etsyBuyButton.href = '#';
+    etsyBuyButton.textContent = 'Available on Etsy Soon';
+    etsyBuyButton.classList.add('is-disabled');
+    etsyBuyButton.setAttribute('aria-disabled', 'true');
+    etsyBuyButton.removeAttribute('target');
+    etsyBuyButton.removeAttribute('rel');
   }
 }
 
-printSizeSelect?.addEventListener("change", () => {
+printSizeSelect?.addEventListener('change', () => {
   const workTitle = title.textContent;
   const product = PRINT_PRODUCTS[workTitle];
+
   if (!product) return;
 
   const selected = product.sizes[Number(printSizeSelect.value)];
-  if (selected) printPrice.textContent = selected.price;
+
+  if (selected) {
+    printPrice.textContent = selected.price;
+  }
 });
 
-etsyBuyButton?.addEventListener("click", (event) => {
-  if (etsyBuyButton.getAttribute("aria-disabled") === "true")
+etsyBuyButton?.addEventListener('click', event => {
+  if (etsyBuyButton.getAttribute('aria-disabled') === 'true') {
     event.preventDefault();
+  }
 });
 
 let zoomLevel = 1;
@@ -178,14 +192,14 @@ const MIN_ZOOM = 1;
 const MAX_ZOOM = 4;
 const ZOOM_STEP = 0.5;
 
-function buildInquiryLink(workTitle = "") {
+function buildInquiryLink(workTitle = '') {
   const subject = workTitle
     ? `Maison du Regard Bleu inquiry: ${workTitle}`
-    : "Maison du Regard Bleu inquiry";
+    : 'Maison du Regard Bleu inquiry';
 
   const body = workTitle
     ? `Hello,\n\nI am interested in ${workTitle}. Please send me availability and purchase details.\n\nThank you.`
-    : "Hello,\n\nI would like more information about Maison du Regard Bleu artwork.\n\nThank you.";
+    : 'Hello,\n\nI would like more information about Maison du Regard Bleu artwork.\n\nThank you.';
 
   return `mailto:${CONTACT_EMAIL}?cc=${encodeURIComponent(CC_EMAIL)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
@@ -197,8 +211,11 @@ function clampArtworkPan() {
     return;
   }
 
-  const maxX = (lightboxViewport.clientWidth * (zoomLevel - 1)) / 2;
-  const maxY = (lightboxViewport.clientHeight * (zoomLevel - 1)) / 2;
+  const maxX =
+    (lightboxViewport.clientWidth * (zoomLevel - 1)) / 2;
+
+  const maxY =
+    (lightboxViewport.clientHeight * (zoomLevel - 1)) / 2;
 
   panX = Math.max(-maxX, Math.min(maxX, panX));
   panY = Math.max(-maxY, Math.min(maxY, panY));
@@ -206,18 +223,38 @@ function clampArtworkPan() {
 
 function renderArtworkZoom() {
   clampArtworkPan();
-  image.style.transform = `translate3d(${panX}px, ${panY}px, 0) scale(${zoomLevel})`;
-  image.classList.toggle("is-zoomed", zoomLevel > 1);
-  lightboxViewport?.classList.toggle("has-zoom", zoomLevel > 1);
 
-  if (zoomResetBtn)
-    zoomResetBtn.textContent = `${Math.round(zoomLevel * 100)}%`;
-  if (zoomOutBtn) zoomOutBtn.disabled = zoomLevel <= MIN_ZOOM;
-  if (zoomInBtn) zoomInBtn.disabled = zoomLevel >= MAX_ZOOM;
+  image.style.transform =
+    `translate3d(${panX}px, ${panY}px, 0) scale(${zoomLevel})`;
+
+  image.classList.toggle('is-zoomed', zoomLevel > 1);
+
+  lightboxViewport?.classList.toggle(
+    'has-zoom',
+    zoomLevel > 1
+  );
+
+  if (zoomResetBtn) {
+    zoomResetBtn.textContent =
+      `${Math.round(zoomLevel * 100)}%`;
+  }
+
+  if (zoomOutBtn) {
+    zoomOutBtn.disabled =
+      zoomLevel <= MIN_ZOOM;
+  }
+
+  if (zoomInBtn) {
+    zoomInBtn.disabled =
+      zoomLevel >= MAX_ZOOM;
+  }
 }
 
 function setArtworkZoom(nextZoom) {
-  zoomLevel = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, nextZoom));
+  zoomLevel = Math.max(
+    MIN_ZOOM,
+    Math.min(MAX_ZOOM, nextZoom)
+  );
 
   if (zoomLevel === 1) {
     panX = 0;
@@ -233,283 +270,650 @@ function resetArtworkZoom() {
   panY = 0;
   isDraggingArtwork = false;
   dragMoved = false;
-  image.classList.remove("is-dragging");
+
+  image.classList.remove('is-dragging');
+
   renderArtworkZoom();
 }
 
 function closeLightbox() {
   resetArtworkZoom();
-  lightbox.classList.remove("active");
-  lightbox.setAttribute("aria-hidden", "true");
-  document.body.style.overflow = "";
+
+  lightbox.classList.remove('active');
+
+  lightbox.setAttribute(
+    'aria-hidden',
+    'true'
+  );
+
+  document.body.style.overflow = '';
 }
 
-cards.forEach((card) => {
-  card.addEventListener("click", () => {
-    const workTitle = card.dataset.title || "";
+cards.forEach(card => {
+  card.addEventListener('click', () => {
+    const workTitle =
+      card.dataset.title || '';
 
-    image.src = card.dataset.img;
-    image.alt = workTitle;
-    title.textContent = workTitle;
-    medium.textContent = card.dataset.medium || "";
+    image.src =
+      card.dataset.img;
+
+    image.alt =
+      workTitle;
+
+    title.textContent =
+      workTitle;
+
+    medium.textContent =
+      card.dataset.medium || '';
+
     size.textContent =
-      card.dataset.size && card.dataset.size !== "Details available by inquiry"
+      card.dataset.size &&
+      card.dataset.size !==
+        'Details available by inquiry'
         ? `Artwork: ${card.dataset.size}`
-        : card.dataset.size || "";
-    frame.textContent = card.dataset.frame || "";
-    print.textContent = card.dataset.print
-      ? `Fine art print: ${card.dataset.print}`
-      : "";
-    status.textContent = card.dataset.status || "";
+        : card.dataset.size || '';
+
+    frame.textContent =
+      card.dataset.frame || '';
+
+    print.textContent =
+      card.dataset.print
+        ? `Fine art print: ${card.dataset.print}`
+        : '';
+
+    status.textContent =
+      card.dataset.status || '';
 
     renderPrintShop(workTitle);
 
-    inquiry.href = buildInquiryLink(workTitle);
+    inquiry.href =
+      buildInquiryLink(workTitle);
+
     inquiry.textContent =
       PRINT_PRODUCTS[workTitle] ||
-      card.dataset.status?.includes("Prints only") ||
-      card.dataset.status?.includes("Original not available") ||
-      card.dataset.status?.includes("Original sold")
-        ? "Inquire about a print"
-        : "Inquire about this work";
+      card.dataset.status?.includes(
+        'Prints only'
+      ) ||
+      card.dataset.status?.includes(
+        'Original not available'
+      ) ||
+      card.dataset.status?.includes(
+        'Original sold'
+      )
+        ? 'Inquire about a print'
+        : 'Inquire about this work';
 
     resetArtworkZoom();
-    lightbox.classList.add("active");
-    lightbox.setAttribute("aria-hidden", "false");
-    document.body.style.overflow = "hidden";
+
+    lightbox.classList.add('active');
+
+    lightbox.setAttribute(
+      'aria-hidden',
+      'false'
+    );
+
+    document.body.style.overflow =
+      'hidden';
   });
 });
 
-closeBtn.addEventListener("click", closeLightbox);
-backdrop.addEventListener("click", closeLightbox);
-
-inquiry.addEventListener("click", () => {
-  window.setTimeout(closeLightbox, 100);
-});
-
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") closeLightbox();
-  if (!lightbox.classList.contains("active")) return;
-
-  if (event.key === "+" || event.key === "=")
-    setArtworkZoom(zoomLevel + ZOOM_STEP);
-  if (event.key === "-" || event.key === "_")
-    setArtworkZoom(zoomLevel - ZOOM_STEP);
-  if (event.key === "0") resetArtworkZoom();
-});
-
-zoomInBtn?.addEventListener("click", (event) => {
-  event.stopPropagation();
-  setArtworkZoom(zoomLevel + ZOOM_STEP);
-});
-
-zoomOutBtn?.addEventListener("click", (event) => {
-  event.stopPropagation();
-  setArtworkZoom(zoomLevel - ZOOM_STEP);
-});
-
-zoomResetBtn?.addEventListener("click", (event) => {
-  event.stopPropagation();
-  resetArtworkZoom();
-});
-
-lightboxViewport?.addEventListener(
-  "wheel",
-  (event) => {
-    if (!lightbox.classList.contains("active")) return;
-    event.preventDefault();
-    const direction = event.deltaY < 0 ? 1 : -1;
-    setArtworkZoom(zoomLevel + direction * 0.25);
-  },
-  { passive: false },
+closeBtn.addEventListener(
+  'click',
+  closeLightbox
 );
 
-image.addEventListener("pointerdown", (event) => {
-  if (zoomLevel <= 1) return;
+backdrop.addEventListener(
+  'click',
+  closeLightbox
+);
 
-  isDraggingArtwork = true;
-  dragMoved = false;
-  dragStartX = event.clientX;
-  dragStartY = event.clientY;
-  dragOriginX = panX;
-  dragOriginY = panY;
-  image.classList.add("is-dragging");
-  image.setPointerCapture?.(event.pointerId);
-});
+inquiry.addEventListener(
+  'click',
+  () => {
+    window.setTimeout(
+      closeLightbox,
+      100
+    );
+  }
+);
 
-image.addEventListener("pointermove", (event) => {
-  if (!isDraggingArtwork) return;
+document.addEventListener(
+  'keydown',
+  event => {
+    if (event.key === 'Escape') {
+      closeLightbox();
+    }
 
-  const dx = event.clientX - dragStartX;
-  const dy = event.clientY - dragStartY;
+    if (
+      !lightbox.classList.contains(
+        'active'
+      )
+    ) {
+      return;
+    }
 
-  if (Math.abs(dx) > 3 || Math.abs(dy) > 3) dragMoved = true;
+    if (
+      event.key === '+' ||
+      event.key === '='
+    ) {
+      setArtworkZoom(
+        zoomLevel + ZOOM_STEP
+      );
+    }
 
-  panX = dragOriginX + dx;
-  panY = dragOriginY + dy;
-  renderArtworkZoom();
-});
+    if (
+      event.key === '-' ||
+      event.key === '_'
+    ) {
+      setArtworkZoom(
+        zoomLevel - ZOOM_STEP
+      );
+    }
+
+    if (event.key === '0') {
+      resetArtworkZoom();
+    }
+  }
+);
+
+zoomInBtn?.addEventListener(
+  'click',
+  event => {
+    event.stopPropagation();
+
+    setArtworkZoom(
+      zoomLevel + ZOOM_STEP
+    );
+  }
+);
+
+zoomOutBtn?.addEventListener(
+  'click',
+  event => {
+    event.stopPropagation();
+
+    setArtworkZoom(
+      zoomLevel - ZOOM_STEP
+    );
+  }
+);
+
+zoomResetBtn?.addEventListener(
+  'click',
+  event => {
+    event.stopPropagation();
+
+    resetArtworkZoom();
+  }
+);
+
+lightboxViewport?.addEventListener(
+  'wheel',
+  event => {
+    if (
+      !lightbox.classList.contains(
+        'active'
+      )
+    ) {
+      return;
+    }
+
+    event.preventDefault();
+
+    const direction =
+      event.deltaY < 0 ? 1 : -1;
+
+    setArtworkZoom(
+      zoomLevel +
+        direction * 0.25
+    );
+  },
+  { passive: false }
+);
+
+image.addEventListener(
+  'pointerdown',
+  event => {
+    if (zoomLevel <= 1) return;
+
+    isDraggingArtwork = true;
+    dragMoved = false;
+
+    dragStartX =
+      event.clientX;
+
+    dragStartY =
+      event.clientY;
+
+    dragOriginX =
+      panX;
+
+    dragOriginY =
+      panY;
+
+    image.classList.add(
+      'is-dragging'
+    );
+
+    image.setPointerCapture?.(
+      event.pointerId
+    );
+  }
+);
+
+image.addEventListener(
+  'pointermove',
+  event => {
+    if (!isDraggingArtwork) {
+      return;
+    }
+
+    const dx =
+      event.clientX -
+      dragStartX;
+
+    const dy =
+      event.clientY -
+      dragStartY;
+
+    if (
+      Math.abs(dx) > 3 ||
+      Math.abs(dy) > 3
+    ) {
+      dragMoved = true;
+    }
+
+    panX =
+      dragOriginX + dx;
+
+    panY =
+      dragOriginY + dy;
+
+    renderArtworkZoom();
+  }
+);
 
 function endArtworkDrag(event) {
-  if (!isDraggingArtwork) return;
-
-  isDraggingArtwork = false;
-  image.classList.remove("is-dragging");
-
-  try {
-    image.releasePointerCapture?.(event.pointerId);
-  } catch (_) {}
-}
-
-image.addEventListener("pointerup", endArtworkDrag);
-image.addEventListener("pointercancel", endArtworkDrag);
-
-image.addEventListener("click", (event) => {
-  event.stopPropagation();
-
-  if (dragMoved) {
-    dragMoved = false;
+  if (!isDraggingArtwork) {
     return;
   }
 
-  if (zoomLevel === 1) setArtworkZoom(2);
-  else resetArtworkZoom();
-});
+  isDraggingArtwork = false;
 
-image.addEventListener("dblclick", (event) => {
-  event.preventDefault();
-  event.stopPropagation();
-  setArtworkZoom(zoomLevel >= 3 ? 1 : Math.min(MAX_ZOOM, zoomLevel + 1));
-});
+  image.classList.remove(
+    'is-dragging'
+  );
 
-window.addEventListener("resize", () => {
-  if (lightbox.classList.contains("active")) renderArtworkZoom();
-});
+  try {
+    image.releasePointerCapture?.(
+      event.pointerId
+    );
+  } catch (_) {}
+}
 
-const reducedMotion = window.matchMedia(
-  "(prefers-reduced-motion: reduce)",
-).matches;
-const finePointer = window.matchMedia("(pointer:fine)").matches;
-const parallaxItems = [...document.querySelectorAll(".parallax")];
-const cursorGlow = document.querySelector(".cursor-glow");
-const cursorGlowTwo = document.querySelector(".cursor-glow.glow-two");
-const cursorRing = document.querySelector(".cursor-ring");
+image.addEventListener(
+  'pointerup',
+  endArtworkDrag
+);
+
+image.addEventListener(
+  'pointercancel',
+  endArtworkDrag
+);
+
+image.addEventListener(
+  'click',
+  event => {
+    event.stopPropagation();
+
+    if (dragMoved) {
+      dragMoved = false;
+      return;
+    }
+
+    if (zoomLevel === 1) {
+      setArtworkZoom(2);
+    } else {
+      resetArtworkZoom();
+    }
+  }
+);
+
+image.addEventListener(
+  'dblclick',
+  event => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    setArtworkZoom(
+      zoomLevel >= 3
+        ? 1
+        : Math.min(
+            MAX_ZOOM,
+            zoomLevel + 1
+          )
+    );
+  }
+);
+
+window.addEventListener(
+  'resize',
+  () => {
+    if (
+      lightbox.classList.contains(
+        'active'
+      )
+    ) {
+      renderArtworkZoom();
+    }
+  }
+);
+
+const reducedMotion =
+  window.matchMedia(
+    '(prefers-reduced-motion: reduce)'
+  ).matches;
+
+const finePointer =
+  window.matchMedia(
+    '(pointer:fine)'
+  ).matches;
+
+const parallaxItems = [
+  ...document.querySelectorAll(
+    '.parallax'
+  )
+];
+
+const cursorGlow =
+  document.querySelector(
+    '.cursor-glow'
+  );
+
+const cursorGlowTwo =
+  document.querySelector(
+    '.cursor-glow.glow-two'
+  );
+
+const cursorRing =
+  document.querySelector(
+    '.cursor-ring'
+  );
 
 if (!reducedMotion && finePointer) {
-  let targetX = window.innerWidth / 2;
-  let targetY = window.innerHeight / 2;
-  let currentX = targetX;
-  let currentY = targetY;
+  let targetX =
+    window.innerWidth / 2;
+
+  let targetY =
+    window.innerHeight / 2;
+
+  let currentX =
+    targetX;
+
+  let currentY =
+    targetY;
 
   const animateScene = () => {
-    currentX += (targetX - currentX) * 0.12;
-    currentY += (targetY - currentY) * 0.12;
+    currentX +=
+      (targetX - currentX) *
+      0.12;
 
-    const nx = (currentX / window.innerWidth - 0.5) * 2;
-    const ny = (currentY / window.innerHeight - 0.5) * 2;
+    currentY +=
+      (targetY - currentY) *
+      0.12;
 
-    parallaxItems.forEach((item) => {
-      const depth = Number(item.dataset.depth || 10) * 2.6;
-      const baseRotate = Number(item.dataset.rotate || 0);
-      const extraRotate = nx * 6 + ny * 4;
-      const scale = 1 + Math.abs(nx * 0.035) + Math.abs(ny * 0.035);
+    const nx =
+      (currentX /
+        window.innerWidth -
+        0.5) *
+      2;
 
-      item.style.transform = `translate3d(${nx * depth}px, ${ny * depth}px, 0) rotate(${baseRotate + extraRotate}deg) scale(${scale})`;
-    });
+    const ny =
+      (currentY /
+        window.innerHeight -
+        0.5) *
+      2;
+
+    parallaxItems.forEach(
+      item => {
+        const depth =
+          Number(
+            item.dataset.depth ||
+              10
+          ) * 2.6;
+
+        const baseRotate =
+          Number(
+            item.dataset.rotate ||
+              0
+          );
+
+        const extraRotate =
+          nx * 6 +
+          ny * 4;
+
+        const scale =
+          1 +
+          Math.abs(
+            nx * 0.035
+          ) +
+          Math.abs(
+            ny * 0.035
+          );
+
+        item.style.transform =
+          `translate3d(${nx * depth}px, ${ny * depth}px, 0) rotate(${baseRotate + extraRotate}deg) scale(${scale})`;
+      }
+    );
 
     if (cursorGlow) {
-      cursorGlow.style.left = `${currentX}px`;
-      cursorGlow.style.top = `${currentY}px`;
+      cursorGlow.style.left =
+        `${currentX}px`;
+
+      cursorGlow.style.top =
+        `${currentY}px`;
     }
 
     if (cursorGlowTwo) {
-      cursorGlowTwo.style.left = `${currentX}px`;
-      cursorGlowTwo.style.top = `${currentY}px`;
+      cursorGlowTwo.style.left =
+        `${currentX}px`;
+
+      cursorGlowTwo.style.top =
+        `${currentY}px`;
     }
 
     if (cursorRing) {
-      cursorRing.style.left = `${currentX}px`;
-      cursorRing.style.top = `${currentY}px`;
+      cursorRing.style.left =
+        `${currentX}px`;
+
+      cursorRing.style.top =
+        `${currentY}px`;
     }
 
-    requestAnimationFrame(animateScene);
+    requestAnimationFrame(
+      animateScene
+    );
   };
 
   window.addEventListener(
-    "mousemove",
-    (event) => {
-      targetX = event.clientX;
-      targetY = event.clientY;
+    'mousemove',
+    event => {
+      targetX =
+        event.clientX;
+
+      targetY =
+        event.clientY;
     },
-    { passive: true },
+    { passive: true }
   );
 
-  window.addEventListener("mouseleave", () => {
-    targetX = window.innerWidth / 2;
-    targetY = window.innerHeight / 2;
-  });
+  window.addEventListener(
+    'mouseleave',
+    () => {
+      targetX =
+        window.innerWidth / 2;
 
-  requestAnimationFrame(animateScene);
+      targetY =
+        window.innerHeight / 2;
+    }
+  );
 
-  if (collectionSection && gallerySpotlight) {
+  requestAnimationFrame(
+    animateScene
+  );
+
+  if (
+    collectionSection &&
+    gallerySpotlight
+  ) {
     collectionSection.addEventListener(
-      "mousemove",
-      (event) => {
-        const rect = collectionSection.getBoundingClientRect();
-        gallerySpotlight.style.left = `${event.clientX - rect.left}px`;
-        gallerySpotlight.style.top = `${event.clientY - rect.top}px`;
+      'mousemove',
+      event => {
+        const rect =
+          collectionSection.getBoundingClientRect();
+
+        gallerySpotlight.style.left =
+          `${event.clientX - rect.left}px`;
+
+        gallerySpotlight.style.top =
+          `${event.clientY - rect.top}px`;
       },
-      { passive: true },
+      { passive: true }
     );
   }
 
-  cards.forEach((card) => {
-    const cardImage = card.querySelector(".art-stage img");
-    const cardMeta = card.querySelector(".art-meta");
+  cards.forEach(card => {
+    const cardImage =
+      card.querySelector(
+        '.art-stage img'
+      );
 
-    card.addEventListener("mousemove", (event) => {
-      const rect = card.getBoundingClientRect();
-      const px = (event.clientX - rect.left) / rect.width;
-      const py = (event.clientY - rect.top) / rect.height;
-      const dx = px - 0.5;
-      const dy = py - 0.5;
+    const cardMeta =
+      card.querySelector(
+        '.art-meta'
+      );
 
-      card.style.transform = `perspective(1400px) rotateX(${-dy * 13}deg) rotateY(${dx * 15}deg) translateY(-12px) scale(1.025)`;
-      card.style.setProperty("--shine-x", `${px * 100}%`);
-      card.style.setProperty("--shine-y", `${py * 100}%`);
+    card.addEventListener(
+      'mousemove',
+      event => {
+        const rect =
+          card.getBoundingClientRect();
 
-      if (cardImage)
-        cardImage.style.transform = `translate3d(${dx * -24}px, ${dy * -20}px, 26px) scale(1.07)`;
-      if (cardMeta)
-        cardMeta.style.transform = `translate3d(${dx * 10}px, ${dy * 8}px, 24px)`;
-    });
+        const px =
+          (event.clientX -
+            rect.left) /
+          rect.width;
 
-    card.addEventListener("mouseleave", () => {
-      card.style.transform = "";
-      card.style.setProperty("--shine-x", "50%");
-      card.style.setProperty("--shine-y", "30%");
-      if (cardImage) cardImage.style.transform = "";
-      if (cardMeta) cardMeta.style.transform = "";
-    });
+        const py =
+          (event.clientY -
+            rect.top) /
+          rect.height;
+
+        const dx =
+          px - 0.5;
+
+        const dy =
+          py - 0.5;
+
+        card.style.transform =
+          `perspective(1400px) rotateX(${-dy * 13}deg) rotateY(${dx * 15}deg) translateY(-12px) scale(1.025)`;
+
+        card.style.setProperty(
+          '--shine-x',
+          `${px * 100}%`
+        );
+
+        card.style.setProperty(
+          '--shine-y',
+          `${py * 100}%`
+        );
+
+        if (cardImage) {
+          cardImage.style.transform =
+            `translate3d(${dx * -24}px, ${dy * -20}px, 26px) scale(1.07)`;
+        }
+
+        if (cardMeta) {
+          cardMeta.style.transform =
+            `translate3d(${dx * 10}px, ${dy * 8}px, 24px)`;
+        }
+      }
+    );
+
+    card.addEventListener(
+      'mouseleave',
+      () => {
+        card.style.transform =
+          '';
+
+        card.style.setProperty(
+          '--shine-x',
+          '50%'
+        );
+
+        card.style.setProperty(
+          '--shine-y',
+          '30%'
+        );
+
+        if (cardImage) {
+          cardImage.style.transform =
+            '';
+        }
+
+        if (cardMeta) {
+          cardMeta.style.transform =
+            '';
+        }
+      }
+    );
   });
 }
 
-const revealItems = document.querySelectorAll(".reveal");
-
-if ("IntersectionObserver" in window && !reducedMotion) {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.12, rootMargin: "0px 0px -30px 0px" },
+const revealItems =
+  document.querySelectorAll(
+    '.reveal'
   );
 
-  revealItems.forEach((element) => observer.observe(element));
+if (
+  'IntersectionObserver' in window &&
+  !reducedMotion
+) {
+  const observer =
+    new IntersectionObserver(
+      entries => {
+        entries.forEach(
+          entry => {
+            if (
+              entry.isIntersecting
+            ) {
+              entry.target.classList.add(
+                'visible'
+              );
+
+              observer.unobserve(
+                entry.target
+              );
+            }
+          }
+        );
+      },
+      {
+        threshold: 0.12,
+        rootMargin:
+          '0px 0px -30px 0px'
+      }
+    );
+
+  revealItems.forEach(
+    element =>
+      observer.observe(element)
+  );
 } else {
-  revealItems.forEach((element) => element.classList.add("visible"));
+  revealItems.forEach(
+    element =>
+      element.classList.add(
+        'visible'
+      )
+  );
 }
