@@ -26,108 +26,135 @@ const CC_EMAIL = 'jslisz.drip@outlook.com';
 
 const PRINT_PRODUCTS = {
   'Subtle Confusion': {
-    etsyUrl: '',
     sizes: [
       { label: '11" × 22"', price: '$24.99' },
       { label: '15" × 30"', price: '$44.99' },
-      { label: '20" × 40"', price: '$69.99' }
+      { label: '20" × 40"', price: '$64.99' }
     ]
   },
-
   'Pieces of Me': {
-    etsyUrl: '',
     sizes: [
       { label: '11" × 14"', price: '$24.99' },
-      { label: '22" × 28"', price: '$44.99' }
+      { label: '16" × 20"', price: '$44.99' },
+      { label: '22" × 28"', price: '$64.99' }
     ]
   },
-
-  'Title pending · 16 × 20': {
-    etsyUrl: '',
+  'Étude en Aqua': {
     sizes: [
-      { label: '8" × 10"', price: '$19.99' },
-      { label: '16" × 20"', price: '$29.99' },
-      { label: '24" × 30"', price: '$54.99' }
+      { label: '12" × 16"', price: '$24.99' },
+      { label: '18" × 24"', price: '$44.99' },
+      { label: '24" × 32"', price: '$64.99' }
     ]
   },
-
+  'Through the Looking Glass': {
+    sizes: [
+      { label: '8" × 10"', price: '$24.99' },
+      { label: '16" × 20"', price: '$44.99' },
+      { label: '24" × 30"', price: '$64.99' }
+    ]
+  },
   'Self Portrait': {
-    etsyUrl: '',
     sizes: [
       { label: '11" × 22"', price: '$24.99' },
       { label: '15" × 30"', price: '$44.99' },
-      { label: '20" × 40"', price: '$69.99' }
+      { label: '20" × 40"', price: '$64.99' }
     ]
   },
-
-  'Modern Muse': {
-    etsyUrl: '',
+  'Every Part of Me': {
     sizes: [
-      { label: '8" × 12"', price: '$19.99' },
-      { label: '12" × 18"', price: '$24.99' },
-      { label: '16" × 24"', price: '$39.99' },
+      { label: '17" × 20"', price: '$24.99' },
+      { label: '20" × 24"', price: '$44.99' },
+      { label: '24" × 30"', price: '$64.99' }
+    ]
+  },
+  'Modern Muse': {
+    sizes: [
+      { label: '8" × 12"', price: '$24.99' },
+      { label: '12" × 18"', price: '$44.99' },
       { label: '24" × 36"', price: '$64.99' }
     ]
   },
-
   'Bleu Tunes in My Cello Head': {
-    etsyUrl: '',
     sizes: [
-      { label: '17" × 20"', price: '$34.99' },
-      { label: '20" × 24"', price: '$44.99' }
+      { label: '17" × 20"', price: '$24.99' },
+      { label: '20" × 24"', price: '$44.99' },
+      { label: '24" × 30"', price: '$64.99' }
     ]
   },
-
-  'Title pending · 18 × 24': {
-    etsyUrl: '',
+  'Seperate': {
     sizes: [
       { label: '12" × 16"', price: '$24.99' },
-      { label: '18" × 24"', price: '$29.99' },
-      { label: '24" × 32"', price: '$49.99' },
-      { label: '30" × 40"', price: '$69.99' }
+      { label: '18" × 24"', price: '$44.99' },
+      { label: '24" × 32"', price: '$64.99' }
     ]
   },
-
   'Arc et Forme': {
-    etsyUrl: '',
     sizes: [
       { label: '14" × 11"', price: '$24.99' },
-      { label: '28" × 22"', price: '$54.99' }
+      { label: '20" × 16"', price: '$44.99' },
+      { label: '28" × 22"', price: '$64.99' }
     ]
   },
-
   'Le Regard': {
-    etsyUrl: '',
     sizes: [
-      { label: '10" × 17"', price: '$24.99' },
-      { label: '14" × 23"', price: '$39.99' }
+      { label: '12" × 18"', price: '$24.99' },
+      { label: '20" × 30"', price: '$44.99' },
+      { label: '27" × 40"', price: '$64.99' }
     ]
   },
-
-  'Title pending · 36 × 42': {
-    etsyUrl: '',
+  'The Break Up': {
     sizes: [
-      { label: '17" × 20"', price: '$34.99' },
-      { label: '20" × 24"', price: '$44.99' }
+      { label: '17" × 20"', price: '$24.99' },
+      { label: '20" × 24"', price: '$44.99' },
+      { label: '24" × 30"', price: '$64.99' }
     ]
   },
-
   'After the Beach': {
-    etsyUrl: '',
     sizes: [
       { label: '18" × 24"', price: '$24.99' },
       { label: '22" × 28"', price: '$44.99' },
       { label: '27" × 40"', price: '$64.99' }
+    ]
+  },
+  'Forgot to Play': {
+    sizes: [
+      { label: '8" × 10"', price: '$24.99' },
+      { label: '16" × 20"', price: '$44.99' },
+      { label: '24" × 30"', price: '$64.99' }
+    ]
+  },
+  'Tin Man': {
+    sizes: [
+      { label: '17" × 20"', price: '$24.99' },
+      { label: '20" × 24"', price: '$44.99' },
+      { label: '24" × 30"', price: '$64.99' }
     ]
   }
 };
 
 const PRINTIFY_STORE_URL = 'https://maisonregardbleu.printify.me';
 
-function renderPrintShop() {
-  if (!printShop || !etsyBuyButton) return;
+function renderPrintShop(workTitle) {
+  if (!printShop || !etsyBuyButton || !printSizeSelect || !printPrice) return;
+
+  const product = PRINT_PRODUCTS[workTitle];
+
+  if (!product) {
+    printShop.hidden = true;
+    return;
+  }
 
   printShop.hidden = false;
+  printSizeSelect.innerHTML = '';
+
+  product.sizes.forEach((option, index) => {
+    const choice = document.createElement('option');
+    choice.value = index;
+    choice.textContent = `${option.label} — ${option.price}`;
+    printSizeSelect.appendChild(choice);
+  });
+
+  printPrice.textContent = product.sizes[0]?.price || '';
 
   etsyBuyButton.href = PRINTIFY_STORE_URL;
   etsyBuyButton.textContent = 'Shop Prints';
@@ -135,11 +162,18 @@ function renderPrintShop() {
   etsyBuyButton.setAttribute('aria-disabled', 'false');
   etsyBuyButton.target = '_blank';
   etsyBuyButton.rel = 'noopener noreferrer';
-
-  if (printSizeSelect) {
-    printSizeSelect.closest('.print-shop')?.classList.add('store-linked');
-  }
 }
+
+printSizeSelect?.addEventListener('change', () => {
+  const workTitle = title.textContent;
+  const product = PRINT_PRODUCTS[workTitle];
+  if (!product) return;
+
+  const selected = product.sizes[Number(printSizeSelect.value)];
+  if (selected) {
+    printPrice.textContent = selected.price;
+  }
+});
 
 let zoomLevel = 1;
 let panX = 0;
