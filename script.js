@@ -371,6 +371,20 @@ function renderPrintShop(workTitle) {
   etsyBuyButton.rel = "noopener noreferrer";
 }
 
+etsyBuyButton?.addEventListener("click", () => {
+  const workTitle = title?.textContent || "";
+  const product = PRINT_PRODUCTS[workTitle];
+  const selected = product?.sizes[Number(printSizeSelect?.value || 0)];
+  if (typeof window.gtag === "function") {
+    window.gtag("event", "printify_buy_click", {
+      artwork_title: workTitle,
+      print_size: selected?.label || "",
+      print_price: selected?.price || "",
+      destination: etsyBuyButton.href
+    });
+  }
+});
+
 printSizeSelect?.addEventListener("change", () => {
   const workTitle = title.textContent;
   const product = PRINT_PRODUCTS[workTitle];
@@ -511,6 +525,13 @@ cards.forEach((card) => {
     status.textContent = card.dataset.status || "";
 
     renderPrintShop(workTitle);
+
+    if (typeof window.gtag === "function") {
+      window.gtag("event", "view_artwork", {
+        artwork_title: workTitle,
+        artwork_status: card.dataset.status || ""
+      });
+    }
 
     inquiry.href = buildInquiryLink(workTitle);
 
