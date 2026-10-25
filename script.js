@@ -227,40 +227,59 @@ const PRINT_PRODUCTS = {
 };
 
 const PRINT_PREVIEWS = {
-  "Subtle Confusion": "images/print-preview-subtle-confusion.png",
+  "Subtle Confusion": "images/print-preview-subtle-confusion.webp",
 
-  "Pieces of Me": "images/print-preview-pieces-of-me.png",
+  "Pieces of Me": "images/print-preview-pieces-of-me.webp",
 
-  "Étude en Aqua": "images/print-preview-etude-en-aqua.png",
+  "Étude en Aqua": "images/print-preview-etude-en-aqua.webp",
 
   "Through the Looking Glass":
-    "images/print-preview-through-the-looking-glass.png",
+    "images/print-preview-through-the-looking-glass.webp",
 
-  "Self Portrait": "images/print-preview-self-portrait.png",
+  "Self Portrait": "images/print-preview-self-portrait.webp",
 
-  "Every Part of Me": "images/print-preview-every-part-of-me.png",
+  "Every Part of Me": "images/print-preview-every-part-of-me.webp",
 
-  "Modern Muse": "images/print-preview-modern-muse.png",
+  "Modern Muse": "images/print-preview-modern-muse.webp",
 
   "Bleu Tunes in My Cello Head":
-    "images/print-preview-bleu-tunes-in-my-cello-head.png",
+    "images/print-preview-bleu-tunes-in-my-cello-head.webp",
 
-  Seperate: "images/print-preview-seperate.png",
+  Seperate: "images/print-preview-seperate.webp",
 
-  "Arc et Forme": "images/print-preview-arc-et-forme.png",
+  "Arc et Forme": "images/print-preview-arc-et-forme.webp",
 
-  "Le Regard": "images/print-preview-le-regard.png",
+  "Le Regard": "images/print-preview-le-regard.webp",
 
-  "The Break Up": "images/print-preview-the-break-up.png",
+  "The Break Up": "images/print-preview-the-break-up.webp",
 
-  "After the Beach": "images/print-preview-after-the-beach.png",
+  "After the Beach": "images/print-preview-after-the-beach.webp",
 
-  "Forgot to Play": "images/print-preview-forgot-to-play.png",
+  "Forgot to Play": "images/print-preview-forgot-to-play.webp",
 
-  "Tin Man": "images/print-preview-tin-man.png",
+  "Tin Man": "images/print-preview-tin-man.webp",
 };
 
 const PRINTIFY_STORE_URL = "https://maisonregardbleu.printify.me";
+const PRINTIFY_PRODUCT_URLS = {
+  "Arc et Forme": "https://maisonregardbleu.printify.me/product/33484292",
+  "Bleu Tunes in My Cello Head": "https://maisonregardbleu.printify.me/product/33484291",
+  "Modern Muse": "https://maisonregardbleu.printify.me/product/33484289",
+  "Tin Man": "https://maisonregardbleu.printify.me/product/33484288",
+  "Every Part of Me": "https://maisonregardbleu.printify.me/product/33484287",
+  "Self Portrait": "https://maisonregardbleu.printify.me/product/33484286",
+  "Pieces of Me": "https://maisonregardbleu.printify.me/product/33484285",
+  "Through the Looking Glass": "https://maisonregardbleu.printify.me/product/33484284",
+  "Subtle Confusion": "https://maisonregardbleu.printify.me/product/33484283",
+  "Étude en Aqua": "https://maisonregardbleu.printify.me/product/33484282",
+  "Forgot to Play": "https://maisonregardbleu.printify.me/product/33484281",
+  "After the Beach": "https://maisonregardbleu.printify.me/product/33484280",
+  "Seperate": "https://maisonregardbleu.printify.me/product/33484279",
+  "The Break Up": "https://maisonregardbleu.printify.me/product/33484278",
+  "Le Regard": "https://maisonregardbleu.printify.me/product/33484277"
+};
+function productUrlFor(workTitle) { return PRINTIFY_PRODUCT_URLS[workTitle] || PRINTIFY_STORE_URL; }
+
 
 function renderPrintShop(workTitle) {
   if (!printShop || !etsyBuyButton || !printSizeSelect || !printPrice) {
@@ -306,9 +325,9 @@ function renderPrintShop(workTitle) {
   const previewSource = PRINT_PREVIEWS[workTitle];
 
   if (previewImage) {
-    preview.hidden = false;
+    preview.hidden = !previewSource;
 
-    previewImage.src = previewSource;
+    if (previewSource) previewImage.src = previewSource;
 
     previewImage.alt = `${workTitle} actual print preview`;
 
@@ -337,7 +356,7 @@ function renderPrintShop(workTitle) {
 
   const firstSize = product.sizes[0];
 
-  etsyBuyButton.href = PRINTIFY_STORE_URL;
+  etsyBuyButton.href = productUrlFor(workTitle);
 
   etsyBuyButton.textContent = firstSize
     ? `Buy ${firstSize.label} on Printify`
@@ -361,7 +380,7 @@ printSizeSelect?.addEventListener("change", () => {
   if (selected) {
     printPrice.textContent = selected.price;
 
-    etsyBuyButton.href = PRINTIFY_STORE_URL;
+    etsyBuyButton.href = productUrlFor(workTitle);
     etsyBuyButton.textContent = `Buy ${selected.label} on Printify`;
     etsyBuyButton.classList.remove("is-disabled");
     etsyBuyButton.setAttribute("aria-disabled", "false");
