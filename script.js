@@ -8,7 +8,7 @@ function filterCollection(filter) {
     const available = (card.dataset.status || "").startsWith("Original available");
     const show = filter === "all" || (filter === "originals" && available) || (filter === "prints-only" && !available);
     card.hidden = !show;
-    if (show) { visibleCount++; card.classList.add("visible"); }
+    if (show) visibleCount++;
   });
   collectionFilterButtons.forEach((button) => {
     const active = button.dataset.filter === filter;
