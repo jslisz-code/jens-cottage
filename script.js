@@ -1,4 +1,25 @@
 const cards = document.querySelectorAll(".art-card");
+// Buyer-friendly filters keep the original gallery intact.
+const collectionFilterButtons = document.querySelectorAll(".collection-filter");
+const collectionFilterCount = document.getElementById("collectionFilterCount");
+function filterCollection(filter) {
+  let visibleCount = 0;
+  cards.forEach((card) => {
+    const available = (card.dataset.status || "").startsWith("Original available");
+    const show = filter === "all" || (filter === "originals" && available) || (filter === "prints-only" && !available);
+    card.hidden = !show;
+    if (show) { visibleCount++; card.classList.add("visible"); }
+  });
+  collectionFilterButtons.forEach((button) => {
+    const active = button.dataset.filter === filter;
+    button.classList.toggle("is-active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
+  if (collectionFilterCount) collectionFilterCount.textContent = visibleCount + (visibleCount === 1 ? " artwork" : " artworks") + " to explore";
+}
+collectionFilterButtons.forEach((button) => button.addEventListener("click", () => filterCollection(button.dataset.filter)));
+filterCollection("all");
+
 const lightbox = document.getElementById("lightbox");
 const image = document.getElementById("lightboxImage");
 const title = document.getElementById("lightboxTitle");
@@ -359,7 +380,7 @@ function renderPrintShop(workTitle) {
   etsyBuyButton.href = productUrlFor(workTitle);
 
   etsyBuyButton.textContent = firstSize
-    ? `Buy ${firstSize.label} on Printify`
+    ? `View ${firstSize.label} print on Printify`
     : "Shop Prints";
 
   etsyBuyButton.classList.remove("is-disabled");
@@ -395,7 +416,7 @@ printSizeSelect?.addEventListener("change", () => {
     printPrice.textContent = selected.price;
 
     etsyBuyButton.href = productUrlFor(workTitle);
-    etsyBuyButton.textContent = `Buy ${selected.label} on Printify`;
+    etsyBuyButton.textContent = `View ${selected.label} print on Printify`;
     etsyBuyButton.classList.remove("is-disabled");
     etsyBuyButton.setAttribute("aria-disabled", "false");
     etsyBuyButton.target = "_blank";
