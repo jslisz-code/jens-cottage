@@ -227,37 +227,37 @@ const PRINT_PRODUCTS = {
 };
 
 const PRINT_PREVIEWS = {
-  "Subtle Confusion": "images/print-preview-subtle-confusion.png",
+  "Subtle Confusion": "images/print-preview-subtle-confusion.webp",
 
-  "Pieces of Me": "images/print-preview-pieces-of-me.png",
+  "Pieces of Me": "images/print-preview-pieces-of-me.webp",
 
-  "Étude en Aqua": "images/print-preview-etude-en-aqua.png",
+  "Étude en Aqua": "images/print-preview-etude-en-aqua.webp",
 
   "Through the Looking Glass":
-    "images/print-preview-through-the-looking-glass.png",
+    "images/print-preview-through-the-looking-glass.webp",
 
-  "Self Portrait": "images/print-preview-self-portrait.png",
+  "Self Portrait": "images/print-preview-self-portrait.webp",
 
-  "Every Part of Me": "images/print-preview-every-part-of-me.png",
+  "Every Part of Me": "images/print-preview-every-part-of-me.webp",
 
-  "Modern Muse": "images/print-preview-modern-muse.png",
+  "Modern Muse": "images/print-preview-modern-muse.webp",
 
   "Bleu Tunes in My Cello Head":
-    "images/print-preview-bleu-tunes-in-my-cello-head.png",
+    "images/print-preview-bleu-tunes-in-my-cello-head.webp",
 
-  Seperate: "images/print-preview-seperate.png",
+  Seperate: "images/print-preview-seperate.webp",
 
-  "Arc et Forme": "images/print-preview-arc-et-forme.png",
+  "Arc et Forme": "images/print-preview-arc-et-forme.webp",
 
-  "Le Regard": "images/print-preview-le-regard.png",
+  "Le Regard": "images/print-preview-le-regard.webp",
 
-  "The Break Up": "images/print-preview-the-break-up.png",
+  "The Break Up": "images/print-preview-the-break-up.webp",
 
-  "After the Beach": "images/print-preview-after-the-beach.png",
+  "After the Beach": "images/print-preview-after-the-beach.webp",
 
-  "Forgot to Play": "images/print-preview-forgot-to-play.png",
+  "Forgot to Play": "images/print-preview-forgot-to-play.webp",
 
-  "Tin Man": "images/print-preview-tin-man.png",
+  "Tin Man": "images/print-preview-tin-man.webp",
 };
 
 const PRINTIFY_STORE_URL = "https://maisonregardbleu.printify.me";
