@@ -188,7 +188,10 @@
         <p class="eyebrow">Jen Jelinski · San Antonio, Texas</p>
         <h1>Maison du<br /><em>Regard Bleu</em></h1>
         <p class="lede">Original contemporary artwork for collectors, curated interiors, and distinctive spaces.</p>
-        <a class="button" href="#collection">Enter the Collection <span>↘</span></a>
+        <div class="hero-actions">
+          <a class="button" href="#collection">Explore the Collection <span>↘</span></a>
+          <a class="hero-shop-link" href="https://maisonregardbleu.printify.me" target="_blank" rel="noopener noreferrer">Shop fine art prints <span aria-hidden="true">↗</span></a>
+        </div>
         <p class="motion-note">Move your cursor and let the gallery respond.</p>
       </div>
       <div class="hero-caption reveal" aria-hidden="true"><span>01</span><span>Original works · Fine art prints available</span></div>
@@ -221,6 +224,15 @@
           </div>
         </div>
 
+        <div class="collection-discovery reveal">
+          <div class="collection-discovery-copy"><span>Find the piece that speaks to you</span><small>Browse originals or discover prints of beloved works.</small></div>
+          <div class="collection-filters" role="group" aria-label="Filter the artwork collection">
+            <button type="button" class="collection-filter is-active" data-filter="all" aria-pressed="true">All works</button>
+            <button type="button" class="collection-filter" data-filter="originals" aria-pressed="false">Originals available</button>
+            <button type="button" class="collection-filter" data-filter="prints-only" aria-pressed="false">Prints only</button>
+          </div>
+        </div>
+        <p id="collectionFilterCount" class="collection-filter-count" aria-live="polite"></p>
         <div class="gallery-grid">
           <button type="button" class="art-card reveal" data-title="Subtle Confusion" data-img="images/staged-subtle-confusion.png" data-medium="Paint on canvas" data-size='12" W × 24" H' data-frame="Unframed" data-status="Original not available · Prints available" data-print="Print sizes preserve the original 1:2 artwork ratio.">
             <div class="art-stage"><img src="images/staged-subtle-confusion.png" alt="Subtle Confusion, blue geometric abstract artwork" /></div>
@@ -536,7 +548,7 @@
 
           <a href="https://maisonregardbleu.printify.me" id="etsyBuyButton" class="etsy-buy-button" target="_blank" rel="noopener noreferrer" aria-disabled="false">Shop Prints</a>
 
-          <p class="print-shop-note">Prints are purchased securely through the Maison du Regard Bleu Printify store.</p>
+          <p class="print-shop-note">Continue to the Maison du Regard Bleu Printify store and confirm your preferred size before checkout.</p>
         </div>
 
         <a class="lightbox-inquire" href="mailto:maisonregardbleu@gmail.com?cc=jslisz.drip@outlook.com" id="lightboxInquiry">Inquire about this work</a>
